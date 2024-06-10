@@ -1,5 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule all in file /home/LC/kollad01/gray_fox_east_structure/Snakefile, line 9:
-Missing input files for rule all:
-    affected files:
-        data/genotypes/structure/structure_input.tab

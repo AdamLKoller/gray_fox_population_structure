@@ -1,1 +1,0 @@
-samtools sort -O bam -o data/merged_bams/ucin139.bam data/merged_bams/ucin139.sam

@@ -1,1 +1,0 @@
-samtools sort -O bam -o data/lane2/sams/F05LC.bam data/lane2/sams/F05LC.sam

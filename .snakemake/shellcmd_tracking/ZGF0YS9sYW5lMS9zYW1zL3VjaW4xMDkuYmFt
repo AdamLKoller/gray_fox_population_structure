@@ -1,1 +1,0 @@
-samtools sort -O bam -o data/lane1/sams/ucin109.bam data/lane1/sams/ucin109.sam

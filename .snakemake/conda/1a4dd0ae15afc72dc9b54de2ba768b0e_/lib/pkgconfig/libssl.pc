@@ -1,9 +1,0 @@
-libdir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/1a4dd0ae15afc72dc9b54de2ba768b0e_/lib
-includedir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/1a4dd0ae15afc72dc9b54de2ba768b0e_/include
-
-Name: OpenSSL-libssl
-Description: Secure Sockets Layer and cryptography libraries
-Version: 3.3.1
-Requires.private: libcrypto
-Libs: -L${libdir} -lssl
-Cflags: -I${includedir}

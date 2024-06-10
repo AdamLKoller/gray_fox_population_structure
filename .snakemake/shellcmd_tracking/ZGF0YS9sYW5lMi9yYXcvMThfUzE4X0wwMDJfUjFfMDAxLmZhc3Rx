@@ -1,1 +1,0 @@
-gzip -d -k data/lane2/raw/18_S18_L002_R1_001.fastq.gz

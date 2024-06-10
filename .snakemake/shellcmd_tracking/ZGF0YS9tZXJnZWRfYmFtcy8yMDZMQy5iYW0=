@@ -1,1 +1,0 @@
-samtools sort -O bam -o data/merged_bams/206LC.bam data/merged_bams/206LC.sam

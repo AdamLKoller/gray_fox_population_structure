@@ -1,1 +1,0 @@
-samtools sort -O bam -o data/merged_bams/F09LC.bam data/merged_bams/F09LC.sam

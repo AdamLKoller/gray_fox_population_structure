@@ -1,9 +1,0 @@
-==> 2024-06-10 15:43:21 <==
-# cmd: /opt/anaconda3/bin/conda-env create --quiet --file /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/d14c4d4a1599aea66253792be0ea322f_.yaml --prefix /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/d14c4d4a1599aea66253792be0ea322f_
-# conda version: 22.9.0
-+bioconda/linux-64::structure-2.3.4-h031d066_6
-+conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
-+conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
-+conda-forge/linux-64::libgcc-ng-13.2.0-h77fa898_7
-+conda-forge/linux-64::libgomp-13.2.0-h77fa898_7
-# update specs: ['structure']

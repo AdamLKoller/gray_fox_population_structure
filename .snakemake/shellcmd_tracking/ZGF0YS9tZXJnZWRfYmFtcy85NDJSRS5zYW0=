@@ -1,1 +1,0 @@
-samtools merge -o data/merged_bams/942RE.sam data/lane1/sams/942RE.sam data/lane2/sams/942RE.sam
