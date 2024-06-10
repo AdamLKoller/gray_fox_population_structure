@@ -1,0 +1,1 @@
+samtools sort -O bam -o data/merged_bams/813RE.bam data/merged_bams/813RE.sam

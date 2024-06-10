@@ -1,0 +1,1 @@
+samtools index data/merged_bams/ucin165conc.bam

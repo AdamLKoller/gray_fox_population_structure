@@ -1,0 +1,1 @@
+samtools index data/lane1/sams/ucin163z.bam

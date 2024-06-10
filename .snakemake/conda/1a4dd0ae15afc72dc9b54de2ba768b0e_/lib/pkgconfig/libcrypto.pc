@@ -1,0 +1,11 @@
+libdir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/1a4dd0ae15afc72dc9b54de2ba768b0e_/lib
+includedir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/1a4dd0ae15afc72dc9b54de2ba768b0e_/include
+enginesdir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/1a4dd0ae15afc72dc9b54de2ba768b0e_/lib/engines-3
+modulesdir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/1a4dd0ae15afc72dc9b54de2ba768b0e_/lib/ossl-modules
+
+Name: OpenSSL-libcrypto
+Description: OpenSSL cryptography library
+Version: 3.3.1
+Libs: -L${libdir} -lcrypto
+Libs.private: -ldl -pthread
+Cflags: -I${includedir}

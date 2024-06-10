@@ -1,0 +1,1 @@
+samtools merge -o data/merged_bams/ucin210RE.sam data/lane1/sams/ucin210RE.sam data/lane2/sams/ucin210RE.sam

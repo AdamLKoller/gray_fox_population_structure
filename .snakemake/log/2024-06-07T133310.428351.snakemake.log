@@ -1,0 +1,535 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 35
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                      count
+---------------------  -------
+align_reads_to_ref         912
+all                          1
+build_bam_index_files      456
+call_genotypes               1
+convert_sams_to_bams       456
+make_list_of_bams            1
+merge_sams                 456
+total                     2283
+
+Select jobs to execute...
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/810.dedup
+    output: data/lane1/sams/810.sam
+    jobid: 235
+    reason: Missing output files: data/lane1/sams/810.sam
+    wildcards: lane=1, sample=810
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin318.dedup
+    output: data/lane2/sams/ucin318.sam
+    jobid: 1966
+    reason: Missing output files: data/lane2/sams/ucin318.sam
+    wildcards: lane=2, sample=ucin318
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/848.dedup
+    output: data/lane1/sams/848.sam
+    jobid: 345
+    reason: Missing output files: data/lane1/sams/848.sam
+    wildcards: lane=1, sample=848
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin074.dedup
+    output: data/lane1/sams/ucin074.sam
+    jobid: 1045
+    reason: Missing output files: data/lane1/sams/ucin074.sam
+    wildcards: lane=1, sample=ucin074
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin399.dedup
+    output: data/lane1/sams/ucin399.sam
+    jobid: 2245
+    reason: Missing output files: data/lane1/sams/ucin399.sam
+    wildcards: lane=1, sample=ucin399
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin340.dedup
+    output: data/lane2/sams/ucin340.sam
+    jobid: 2076
+    reason: Missing output files: data/lane2/sams/ucin340.sam
+    wildcards: lane=2, sample=ucin340
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin096.dedup
+    output: data/lane2/sams/ucin096.sam
+    jobid: 1126
+    reason: Missing output files: data/lane2/sams/ucin096.sam
+    wildcards: lane=2, sample=ucin096
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin258.dedup
+    output: data/lane1/sams/ucin258.sam
+    jobid: 1760
+    reason: Missing output files: data/lane1/sams/ucin258.sam
+    wildcards: lane=1, sample=ucin258
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin312.dedup
+    output: data/lane1/sams/ucin312.sam
+    jobid: 1935
+    reason: Missing output files: data/lane1/sams/ucin312.sam
+    wildcards: lane=1, sample=ucin312
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/153LC.dedup
+    output: data/lane1/sams/153LC.sam
+    jobid: 560
+    reason: Missing output files: data/lane1/sams/153LC.sam
+    wildcards: lane=1, sample=153LC
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin204conc.dedup
+    output: data/lane1/sams/ucin204conc.sam
+    jobid: 1510
+    reason: Missing output files: data/lane1/sams/ucin204conc.sam
+    wildcards: lane=1, sample=ucin204conc
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin022.dedup
+    output: data/lane1/sams/ucin022.sam
+    jobid: 835
+    reason: Missing output files: data/lane1/sams/ucin022.sam
+    wildcards: lane=1, sample=ucin022
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin262reconc.dedup
+    output: data/lane1/sams/ucin262reconc.sam
+    jobid: 1785
+    reason: Missing output files: data/lane1/sams/ucin262reconc.sam
+    wildcards: lane=1, sample=ucin262reconc
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin108.dedup
+    output: data/lane1/sams/ucin108.sam
+    jobid: 1185
+    reason: Missing output files: data/lane1/sams/ucin108.sam
+    wildcards: lane=1, sample=ucin108
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin124.dedup
+    output: data/lane1/sams/ucin124.sam
+    jobid: 1260
+    reason: Missing output files: data/lane1/sams/ucin124.sam
+    wildcards: lane=1, sample=ucin124
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin307.dedup
+    output: data/lane1/sams/ucin307.sam
+    jobid: 1910
+    reason: Missing output files: data/lane1/sams/ucin307.sam
+    wildcards: lane=1, sample=ucin307
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/853.dedup
+    output: data/lane1/sams/853.sam
+    jobid: 360
+    reason: Missing output files: data/lane1/sams/853.sam
+    wildcards: lane=1, sample=853
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin239.dedup
+    output: data/lane2/sams/ucin239.sam
+    jobid: 1691
+    reason: Missing output files: data/lane2/sams/ucin239.sam
+    wildcards: lane=2, sample=ucin239
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin363.dedup
+    output: data/lane2/sams/ucin363.sam
+    jobid: 2191
+    reason: Missing output files: data/lane2/sams/ucin363.sam
+    wildcards: lane=2, sample=ucin363
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin055.dedup
+    output: data/lane2/sams/ucin055.sam
+    jobid: 991
+    reason: Missing output files: data/lane2/sams/ucin055.sam
+    wildcards: lane=2, sample=ucin055
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin259.dedup
+    output: data/lane2/sams/ucin259.sam
+    jobid: 1766
+    reason: Missing output files: data/lane2/sams/ucin259.sam
+    wildcards: lane=2, sample=ucin259
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin125.dedup
+    output: data/lane2/sams/ucin125.sam
+    jobid: 1266
+    reason: Missing output files: data/lane2/sams/ucin125.sam
+    wildcards: lane=2, sample=ucin125
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin162conc.dedup
+    output: data/lane2/sams/ucin162conc.sam
+    jobid: 1441
+    reason: Missing output files: data/lane2/sams/ucin162conc.sam
+    wildcards: lane=2, sample=ucin162conc
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin104.dedup
+    output: data/lane2/sams/ucin104.sam
+    jobid: 1166
+    reason: Missing output files: data/lane2/sams/ucin104.sam
+    wildcards: lane=2, sample=ucin104
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin325re.dedup
+    output: data/lane1/sams/ucin325re.sam
+    jobid: 2000
+    reason: Missing output files: data/lane1/sams/ucin325re.sam
+    wildcards: lane=1, sample=ucin325re
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin117conc.dedup
+    output: data/lane1/sams/ucin117conc.sam
+    jobid: 1225
+    reason: Missing output files: data/lane1/sams/ucin117conc.sam
+    wildcards: lane=1, sample=ucin117conc
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/943.dedup
+    output: data/lane1/sams/943.sam
+    jobid: 450
+    reason: Missing output files: data/lane1/sams/943.sam
+    wildcards: lane=1, sample=943
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/822RE.dedup
+    output: data/lane1/sams/822RE.sam
+    jobid: 625
+    reason: Missing output files: data/lane1/sams/822RE.sam
+    wildcards: lane=1, sample=822RE
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin328.dedup
+    output: data/lane2/sams/ucin328.sam
+    jobid: 2016
+    reason: Missing output files: data/lane2/sams/ucin328.sam
+    wildcards: lane=2, sample=ucin328
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin277z.dedup
+    output: data/lane2/sams/ucin277z.sam
+    jobid: 1856
+    reason: Missing output files: data/lane2/sams/ucin277z.sam
+    wildcards: lane=2, sample=ucin277z
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin426.dedup
+    output: data/lane2/sams/ucin426.sam
+    jobid: 2381
+    reason: Missing output files: data/lane2/sams/ucin426.sam
+    wildcards: lane=2, sample=ucin426
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin125.dedup
+    output: data/lane1/sams/ucin125.sam
+    jobid: 1265
+    reason: Missing output files: data/lane1/sams/ucin125.sam
+    wildcards: lane=1, sample=ucin125
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin206.dedup
+    output: data/lane2/sams/ucin206.sam
+    jobid: 1521
+    reason: Missing output files: data/lane2/sams/ucin206.sam
+    wildcards: lane=2, sample=ucin206
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:13 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/F03LC.dedup
+    output: data/lane1/sams/F03LC.sam
+    jobid: 705
+    reason: Missing output files: data/lane1/sams/F03LC.sam
+    wildcards: lane=1, sample=F03LC
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 13:33:14 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin316.dedup
+    output: data/lane1/sams/ucin316.sam
+    jobid: 1955
+    reason: Missing output files: data/lane1/sams/ucin316.sam
+    wildcards: lane=1, sample=ucin316
+    resources: tmpdir=/tmp
+
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin325re.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin204conc.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin312.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin340.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin124.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin055.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin277z.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin307.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/848.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin426.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin318.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin125.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin125.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin363.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin258.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin117conc.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin108.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin162conc.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin074.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin316.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin328.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin259.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin104.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin239.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin022.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin262reconc.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/153LC.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin206.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane2/sams/ucin096.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/ucin399.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/F03LC.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/822RE.sam
+WorkflowError:
+Failed to open source file /home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/LC/kollad01/gray_fox_east_structure/rules/envs/preprocessing.yml'
+Removing output files of failed job align_reads_to_ref since they might be corrupted:
+data/lane1/sams/853.sam
+Terminating processes on user request, this might take some time.
+Complete log: .snakemake/log/2024-06-07T133310.428351.snakemake.log

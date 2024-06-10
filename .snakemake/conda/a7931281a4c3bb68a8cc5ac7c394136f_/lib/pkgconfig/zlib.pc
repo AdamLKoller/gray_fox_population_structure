@@ -1,0 +1,13 @@
+prefix=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/a7931281a4c3bb68a8cc5ac7c394136f_
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+sharedlibdir=${libdir}
+includedir=${prefix}/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

@@ -1,0 +1,7 @@
+name: gray_fox_east_structure
+channels:
+  - bioconda
+  - conda-forge
+
+dependencies:
+  - bowtie2=2.4.2

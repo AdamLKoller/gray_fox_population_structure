@@ -1,0 +1,13 @@
+OUTPUT_FILE=$1
+shift
+FASTQ_FILES="$@"
+TOTAL_COUNT=0
+
+for FILE in $FASTQ_FILES; 
+do
+    COUNT=$(wc -l < "$FILE")
+    TOTAL_COUNT=$((TOTAL_COUNT + COUNT))
+done
+TOTAL_COUNT=$((TOTAL_COUNT/4))
+
+echo "Total raw reads: $TOTAL_COUNT" > "$OUTPUT_FILE"

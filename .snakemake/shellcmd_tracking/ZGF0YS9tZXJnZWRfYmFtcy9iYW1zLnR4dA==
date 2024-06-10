@@ -1,0 +1,1 @@
+ls data/merged_bams/*.bam > data/merged_bams/bams.txt

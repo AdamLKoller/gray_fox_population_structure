@@ -1,0 +1,42 @@
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however crucial for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment envs/call_variants.yml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /home/LC/kollad01/gray_fox_east_structure/rules/../envs/call_variants.yml:
+Command:
+conda env create --quiet --file "/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/ffd3fba045553af17149db8aa2b01850_.yaml" --prefix "/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/ffd3fba045553af17149db8aa2b01850_"
+Output:
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... 
+Building graph of deps:   0%|                                                                          | 0/5 [00:00<?, ?it/s]
+Examining @/linux-64::__archspec==1=x86_64:   0%|                                                      | 0/5 [00:00<?, ?it/s]
+Examining @/linux-64::__unix==0=0:  20%|██████████▌                                          | 1/5 [00:00<00:00, 5096.36it/s]
+Examining @/linux-64::__linux==5.15.0=0:  40%|██████████████████▊                            | 2/5 [00:00<00:00, 5656.51it/s]
+Examining @/linux-64::__glibc==2.35=0:  60%|█████████████████████████████▍                   | 3/5 [00:00<00:00, 6084.58it/s]
+Examining angsd==0.940-0:  80%|█████████████████████████████████████████████████▌            | 4/5 [00:00<00:00, 6428.05it/s]
+                                                                                                                             
+
+Determining conflicts:   0%|                                                                           | 0/5 [00:00<?, ?it/s]
+                                                                                                                             
+Found conflicts! Looking for incompatible packages.
+This can take several minutes.  Press CTRL-C to abort.
+failed
+Solving environment: ...working... 
+Building graph of deps:   0%|                                                                          | 0/5 [00:00<?, ?it/s]
+Examining @/linux-64::__archspec==1=x86_64:   0%|                                                      | 0/5 [00:00<?, ?it/s]
+Examining @/linux-64::__unix==0=0:  20%|██████████▌                                          | 1/5 [00:00<00:00, 5857.97it/s]
+Examining @/linux-64::__linux==5.15.0=0:  40%|██████████████████▊                            | 2/5 [00:00<00:00, 6200.01it/s]
+Examining @/linux-64::__glibc==2.35=0:  60%|█████████████████████████████▍                   | 3/5 [00:00<00:00, 6479.36it/s]
+Examining angsd==0.940-0:  80%|█████████████████████████████████████████████████▌            | 4/5 [00:00<00:00, 6710.89it/s]
+                                                                                                                             
+
+Determining conflicts:   0%|                                                                           | 0/5 [00:00<?, ?it/s]
+                                                                                                                             
+Found conflicts! Looking for incompatible packages.
+This can take several minutes.  Press CTRL-C to abort.
+failed
+
+UnsatisfiableError: 
+
+

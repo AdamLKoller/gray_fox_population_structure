@@ -1,0 +1,3 @@
+SyntaxError in file /home/LC/kollad01/gray_fox_east_structure/rules/analyses.smk, line 21:
+invalid syntax. Perhaps you forgot a comma?
+  File "/home/LC/kollad01/gray_fox_east_structure/Snakefile", line 17, in <module>

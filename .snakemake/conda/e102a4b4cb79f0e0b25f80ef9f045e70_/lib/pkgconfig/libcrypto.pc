@@ -1,0 +1,12 @@
+prefix=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+enginesdir=${libdir}/engines-1.1
+
+Name: OpenSSL-libcrypto
+Description: OpenSSL cryptography library
+Version: 1.1.1w
+Libs: -L${libdir} -lcrypto
+Libs.private: -ldl -pthread 
+Cflags: -I${includedir}

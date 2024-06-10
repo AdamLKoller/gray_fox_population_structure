@@ -1,0 +1,12 @@
+prefix=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/5a9f9d52ae538974714638ca500ef74e_
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Readline
+Description: Gnu Readline library for command line editing
+URL: http://tiswww.cwru.edu/php/chet/readline/rltop.html
+Version: 8.1
+Requires.private: tinfo
+Libs: -L${libdir} -lreadline
+Cflags: -I${includedir}

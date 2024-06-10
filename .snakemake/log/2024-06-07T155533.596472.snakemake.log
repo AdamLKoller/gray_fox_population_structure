@@ -1,0 +1,1083 @@
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however crucial for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment envs/preprocessing.yml...
+Downloading and installing remote packages.
+Environment for /home/LC/kollad01/gray_fox_east_structure/rules/../envs/preprocessing.yml created (location: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_)
+Using shell: /bin/bash
+Provided cores: 35
+Rules claiming more threads will be scaled down.
+Job stats:
+job                      count
+---------------------  -------
+align_reads_to_ref         912
+all                          1
+build_bam_index_files      456
+call_genotypes               1
+convert_sams_to_bams       456
+make_list_of_bams            1
+merge_sams                 456
+total                     2283
+
+Select jobs to execute...
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin273.dedup
+    output: data/lane2/sams/ucin273.sam
+    jobid: 1836
+    reason: Missing output files: data/lane2/sams/ucin273.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin273
+    resources: tmpdir=/tmp
+
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin166z.dedup
+    output: data/lane2/sams/ucin166z.sam
+    jobid: 1461
+    reason: Missing output files: data/lane2/sams/ucin166z.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin166z
+    resources: tmpdir=/tmp
+
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin312.dedup
+    output: data/lane2/sams/ucin312.sam
+    jobid: 1936
+    reason: Missing output files: data/lane2/sams/ucin312.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin312
+    resources: tmpdir=/tmp
+
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin265conc.dedup
+    output: data/lane2/sams/ucin265conc.sam
+    jobid: 1801
+    reason: Missing output files: data/lane2/sams/ucin265conc.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin265conc
+    resources: tmpdir=/tmp
+
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin385.dedup
+    output: data/lane1/sams/ucin385.sam
+    jobid: 2235
+    reason: Missing output files: data/lane1/sams/ucin385.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin385
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin337.dedup
+    output: data/lane1/sams/ucin337.sam
+    jobid: 2060
+    reason: Missing output files: data/lane1/sams/ucin337.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin337
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin352z.dedup
+    output: data/lane1/sams/ucin352z.sam
+    jobid: 2135
+    reason: Missing output files: data/lane1/sams/ucin352z.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin352z
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/803RE.dedup
+    output: data/lane1/sams/803RE.sam
+    jobid: 585
+    reason: Missing output files: data/lane1/sams/803RE.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=803RE
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin302.dedup
+    output: data/lane1/sams/ucin302.sam
+    jobid: 1885
+    reason: Missing output files: data/lane1/sams/ucin302.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin302
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin347conc.dedup
+    output: data/lane1/sams/ucin347conc.sam
+    jobid: 2110
+    reason: Missing output files: data/lane1/sams/ucin347conc.sam
+    wildcards: lane=1, sample=ucin347conc
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin229.dedup
+    output: data/lane1/sams/ucin229.sam
+    jobid: 1635
+    reason: Missing output files: data/lane1/sams/ucin229.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin229
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin028.dedup
+    output: data/lane1/sams/ucin028.sam
+    jobid: 860
+    reason: Missing output files: data/lane1/sams/ucin028.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin028
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin432z.dedup
+    output: data/lane1/sams/ucin432z.sam
+    jobid: 2410
+    reason: Missing output files: data/lane1/sams/ucin432z.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin432z
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin065.dedup
+    output: data/lane1/sams/ucin065.sam
+    jobid: 1035
+    reason: Missing output files: data/lane1/sams/ucin065.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin065
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin204conc.dedup
+    output: data/lane1/sams/ucin204conc.sam
+    jobid: 1510
+    reason: Missing output files: data/lane1/sams/ucin204conc.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin204conc
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/153LC.dedup
+    output: data/lane1/sams/153LC.sam
+    jobid: 560
+    reason: Missing output files: data/lane1/sams/153LC.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=153LC
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin318.dedup
+    output: data/lane2/sams/ucin318.sam
+    jobid: 1966
+    reason: Missing output files: data/lane2/sams/ucin318.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin318
+    resources: tmpdir=/tmp
+
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/935.dedup
+    output: data/lane2/sams/935.sam
+    jobid: 416
+    reason: Missing output files: data/lane2/sams/935.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=935
+    resources: tmpdir=/tmp
+
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin303.dedup
+    output: data/lane2/sams/ucin303.sam
+    jobid: 1891
+    reason: Missing output files: data/lane2/sams/ucin303.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin303
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin246z.dedup
+    output: data/lane1/sams/ucin246z.sam
+    jobid: 1725
+    reason: Missing output files: data/lane1/sams/ucin246z.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin246z
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin138.dedup
+    output: data/lane2/sams/ucin138.sam
+    jobid: 1331
+    reason: Missing output files: data/lane2/sams/ucin138.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin138
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin346.dedup
+    output: data/lane2/sams/ucin346.sam
+    jobid: 2106
+    reason: Missing output files: data/lane2/sams/ucin346.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin346
+    resources: tmpdir=/tmp
+
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/F03LC.dedup
+    output: data/lane2/sams/F03LC.sam
+    jobid: 706
+    reason: Missing output files: data/lane2/sams/F03LC.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=F03LC
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin094.dedup
+    output: data/lane1/sams/ucin094.sam
+    jobid: 1115
+    reason: Missing output files: data/lane1/sams/ucin094.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin094
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin259.dedup
+    output: data/lane1/sams/ucin259.sam
+    jobid: 1765
+    reason: Missing output files: data/lane1/sams/ucin259.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin259
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin167conc.dedup
+    output: data/lane1/sams/ucin167conc.sam
+    jobid: 1465
+    reason: Missing output files: data/lane1/sams/ucin167conc.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin167conc
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin268.dedup
+    output: data/lane1/sams/ucin268.sam
+    jobid: 1815
+    reason: Missing output files: data/lane1/sams/ucin268.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin268
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/109LC.dedup
+    output: data/lane2/sams/109LC.sam
+    jobid: 471
+    reason: Missing output files: data/lane2/sams/109LC.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=109LC
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:23 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin079z.dedup
+    output: data/lane2/sams/ucin079z.sam
+    jobid: 1071
+    reason: Missing output files: data/lane2/sams/ucin079z.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin079z
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:24 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin121conc.dedup
+    output: data/lane2/sams/ucin121conc.sam
+    jobid: 1246
+    reason: Missing output files: data/lane2/sams/ucin121conc.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin121conc
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:24 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin279concreplicate.dedup
+    output: data/lane2/sams/ucin279concreplicate.sam
+    jobid: 1871
+    reason: Missing output files: data/lane2/sams/ucin279concreplicate.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin279concreplicate
+    resources: tmpdir=/tmp
+
+
+[Fri Jun  7 15:56:24 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/939.dedup
+    output: data/lane1/sams/939.sam
+    jobid: 435
+    reason: Missing output files: data/lane1/sams/939.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=939
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:24 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin267.dedup
+    output: data/lane1/sams/ucin267.sam
+    jobid: 1810
+    reason: Missing output files: data/lane1/sams/ucin267.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin267
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:24 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/IN001.dedup
+    output: data/lane1/sams/IN001.sam
+    jobid: 730
+    reason: Missing output files: data/lane1/sams/IN001.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=IN001
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+
+[Fri Jun  7 15:56:24 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin407RE.dedup
+    output: data/lane1/sams/ucin407RE.sam
+    jobid: 2280
+    reason: Missing output files: data/lane1/sams/ucin407RE.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin407RE
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:36 2024]
+Finished job 1936.
+1 of 2283 steps (0.0%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:56:36 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin350.dedup
+    output: data/lane2/sams/ucin350.sam
+    jobid: 2126
+    reason: Missing output files: data/lane2/sams/ucin350.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin350
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:36 2024]
+Finished job 1510.
+2 of 2283 steps (0.1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:56:36 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin022.dedup
+    output: data/lane2/sams/ucin022.sam
+    jobid: 836
+    reason: Missing output files: data/lane2/sams/ucin022.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin022
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:56 2024]
+Finished job 1461.
+3 of 2283 steps (0.1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:56:57 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin233.dedup
+    output: data/lane2/sams/ucin233.sam
+    jobid: 1656
+    reason: Missing output files: data/lane2/sams/ucin233.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin233
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:56:58 2024]
+Finished job 1891.
+4 of 2283 steps (0.2%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:56:59 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin436.dedup
+    output: data/lane2/sams/ucin436.sam
+    jobid: 2431
+    reason: Missing output files: data/lane2/sams/ucin436.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin436
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:08 2024]
+Finished job 1885.
+5 of 2283 steps (0.2%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:08 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin135.dedup
+    output: data/lane1/sams/ucin135.sam
+    jobid: 1315
+    reason: Missing output files: data/lane1/sams/ucin135.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin135
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:20 2024]
+Finished job 1315.
+6 of 2283 steps (0.3%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:20 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin240.dedup
+    output: data/lane2/sams/ucin240.sam
+    jobid: 1696
+    reason: Missing output files: data/lane2/sams/ucin240.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin240
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:22 2024]
+Finished job 730.
+7 of 2283 steps (0.3%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:22 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin049z.dedup
+    output: data/lane2/sams/ucin049z.sam
+    jobid: 966
+    reason: Missing output files: data/lane2/sams/ucin049z.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin049z
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:25 2024]
+Finished job 1115.
+8 of 2283 steps (0.4%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:25 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin040.dedup
+    output: data/lane2/sams/ucin040.sam
+    jobid: 921
+    reason: Missing output files: data/lane2/sams/ucin040.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin040
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:28 2024]
+Finished job 1725.
+9 of 2283 steps (0.4%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:28 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin118conc.dedup
+    output: data/lane1/sams/ucin118conc.sam
+    jobid: 1230
+    reason: Missing output files: data/lane1/sams/ucin118conc.sam; Software environment definition has changed since last execution
+    wildcards: lane=1, sample=ucin118conc
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:29 2024]
+Finished job 1635.
+10 of 2283 steps (0.4%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:30 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin001.dedup
+    output: data/lane2/sams/ucin001.sam
+    jobid: 746
+    reason: Missing output files: data/lane2/sams/ucin001.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin001
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:31 2024]
+Finished job 1331.
+11 of 2283 steps (0.5%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:31 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin106.dedup
+    output: data/lane2/sams/ucin106.sam
+    jobid: 1176
+    reason: Missing output files: data/lane2/sams/ucin106.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin106
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:33 2024]
+Finished job 2235.
+12 of 2283 steps (1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:33 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin315.dedup
+    output: data/lane2/sams/ucin315.sam
+    jobid: 1951
+    reason: Missing output files: data/lane2/sams/ucin315.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin315
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:34 2024]
+Finished job 1465.
+13 of 2283 steps (1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:35 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin098.dedup
+    output: data/lane2/sams/ucin098.sam
+    jobid: 1136
+    reason: Missing output files: data/lane2/sams/ucin098.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin098
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:37 2024]
+Finished job 2060.
+14 of 2283 steps (1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:37 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin435.dedup
+    output: data/lane2/sams/ucin435.sam
+    jobid: 2426
+    reason: Missing output files: data/lane2/sams/ucin435.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin435
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:38 2024]
+Finished job 2410.
+15 of 2283 steps (1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:38 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin307.dedup
+    output: data/lane2/sams/ucin307.sam
+    jobid: 1911
+    reason: Missing output files: data/lane2/sams/ucin307.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin307
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:38 2024]
+Finished job 1966.
+16 of 2283 steps (1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:38 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin232.dedup
+    output: data/lane2/sams/ucin232.sam
+    jobid: 1651
+    reason: Missing output files: data/lane2/sams/ucin232.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin232
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+[Fri Jun  7 15:57:41 2024]
+Finished job 1246.
+17 of 2283 steps (1%) done
+Select jobs to execute...
+
+[Fri Jun  7 15:57:41 2024]
+rule align_reads_to_ref:
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin316.dedup
+    output: data/lane2/sams/ucin316.sam
+    jobid: 1956
+    reason: Missing output files: data/lane2/sams/ucin316.sam; Software environment definition has changed since last execution
+    wildcards: lane=2, sample=ucin316
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+Terminating processes on user request, this might take some time.
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 921
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin040.dedup
+    output: data/lane2/sams/ucin040.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin040.dedup -S data/lane2/sams/ucin040.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 2126
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin350.dedup
+    output: data/lane2/sams/ucin350.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin350.dedup -S data/lane2/sams/ucin350.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 471
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/109LC.dedup
+    output: data/lane2/sams/109LC.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/109LC.dedup -S data/lane2/sams/109LC.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 1071
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin079z.dedup
+    output: data/lane2/sams/ucin079z.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin079z.dedup -S data/lane2/sams/ucin079z.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1651
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin232.dedup
+    output: data/lane2/sams/ucin232.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin232.dedup -S data/lane2/sams/ucin232.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 2110
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin347conc.dedup
+    output: data/lane1/sams/ucin347conc.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin347conc.dedup -S data/lane1/sams/ucin347conc.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1836
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin273.dedup
+    output: data/lane2/sams/ucin273.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin273.dedup -S data/lane2/sams/ucin273.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 1035
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin065.dedup
+    output: data/lane1/sams/ucin065.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin065.dedup -S data/lane1/sams/ucin065.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1230
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin118conc.dedup
+    output: data/lane1/sams/ucin118conc.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin118conc.dedup -S data/lane1/sams/ucin118conc.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1951
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin315.dedup
+    output: data/lane2/sams/ucin315.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin315.dedup -S data/lane2/sams/ucin315.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1136
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin098.dedup
+    output: data/lane2/sams/ucin098.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin098.dedup -S data/lane2/sams/ucin098.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 416
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/935.dedup
+    output: data/lane2/sams/935.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/935.dedup -S data/lane2/sams/935.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 435
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/939.dedup
+    output: data/lane1/sams/939.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/939.dedup -S data/lane1/sams/939.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 1815
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin268.dedup
+    output: data/lane1/sams/ucin268.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin268.dedup -S data/lane1/sams/ucin268.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 706
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/F03LC.dedup
+    output: data/lane2/sams/F03LC.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/F03LC.dedup -S data/lane2/sams/F03LC.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1810
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin267.dedup
+    output: data/lane1/sams/ucin267.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin267.dedup -S data/lane1/sams/ucin267.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1765
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin259.dedup
+    output: data/lane1/sams/ucin259.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin259.dedup -S data/lane1/sams/ucin259.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 2280
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin407RE.dedup
+    output: data/lane1/sams/ucin407RE.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin407RE.dedup -S data/lane1/sams/ucin407RE.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1911
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin307.dedup
+    output: data/lane2/sams/ucin307.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin307.dedup -S data/lane2/sams/ucin307.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 966
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin049z.dedup
+    output: data/lane2/sams/ucin049z.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin049z.dedup -S data/lane2/sams/ucin049z.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1801
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin265conc.dedup
+    output: data/lane2/sams/ucin265conc.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin265conc.dedup -S data/lane2/sams/ucin265conc.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 746
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin001.dedup
+    output: data/lane2/sams/ucin001.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin001.dedup -S data/lane2/sams/ucin001.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1696
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin240.dedup
+    output: data/lane2/sams/ucin240.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin240.dedup -S data/lane2/sams/ucin240.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1871
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin279concreplicate.dedup
+    output: data/lane2/sams/ucin279concreplicate.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin279concreplicate.dedup -S data/lane2/sams/ucin279concreplicate.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Fri Jun  7 15:57:42 2024]
+Error in rule align_reads_to_ref:
+    jobid: 860
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin028.dedup
+    output: data/lane1/sams/ucin028.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin028.dedup -S data/lane1/sams/ucin028.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 2106
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin346.dedup
+    output: data/lane2/sams/ucin346.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin346.dedup -S data/lane2/sams/ucin346.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1656
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin233.dedup
+    output: data/lane2/sams/ucin233.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin233.dedup -S data/lane2/sams/ucin233.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 2135
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/ucin352z.dedup
+    output: data/lane1/sams/ucin352z.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/ucin352z.dedup -S data/lane1/sams/ucin352z.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 2426
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin435.dedup
+    output: data/lane2/sams/ucin435.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin435.dedup -S data/lane2/sams/ucin435.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 836
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin022.dedup
+    output: data/lane2/sams/ucin022.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin022.dedup -S data/lane2/sams/ucin022.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 560
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/153LC.dedup
+    output: data/lane1/sams/153LC.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/153LC.dedup -S data/lane1/sams/153LC.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1956
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin316.dedup
+    output: data/lane2/sams/ucin316.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin316.dedup -S data/lane2/sams/ucin316.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 585
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane1/deduped/803RE.dedup
+    output: data/lane1/sams/803RE.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/803RE.dedup -S data/lane1/sams/803RE.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 2431
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin436.dedup
+    output: data/lane2/sams/ucin436.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin436.dedup -S data/lane2/sams/ucin436.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule align_reads_to_ref:
+    jobid: 1176
+    input: data/ref_genome/UCinero_ref.1.bt2, data/ref_genome/UCinero_ref.2.bt2, data/ref_genome/UCinero_ref.3.bt2, data/ref_genome/UCinero_ref.4.bt2, data/ref_genome/UCinero_ref.rev.1.bt2, data/ref_genome/UCinero_ref.rev.2.bt2, data/lane2/deduped/ucin106.dedup
+    output: data/lane2/sams/ucin106.sam
+    conda-env: /home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f944de7bcf8df9a72e92c728db31eb70_
+    shell:
+        
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane2/deduped/ucin106.dedup -S data/lane2/sams/ucin106.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Complete log: .snakemake/log/2024-06-07T155533.596472.snakemake.log

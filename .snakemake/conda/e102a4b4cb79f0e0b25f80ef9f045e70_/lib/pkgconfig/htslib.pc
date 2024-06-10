@@ -1,0 +1,15 @@
+includedir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/include
+libdir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/lib
+
+# Flags and libraries needed when linking against a static libhts.a
+# (used by manual and semi-manual pkg-config(1)-style enquiries).
+static_ldflags=-Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,-rpath,/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/lib -Wl,-rpath-link,/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/lib -L/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/lib -rdynamic
+static_libs=-lpthread -lz -lm -ldl -lbz2 -llzma -ldeflate
+
+Name: htslib
+Description: C library for high-throughput sequencing data formats
+Version: 1.12
+Cflags: -I${includedir}
+Libs: -L${libdir} -lhts
+Libs.private: -L${libdir} -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,-rpath,/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/lib -Wl,-rpath-link,/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/lib -L/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/e102a4b4cb79f0e0b25f80ef9f045e70_/lib -lbz2 -ldeflate -lhts -lm -lpthread
+Requires.private: zlib  liblzma

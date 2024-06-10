@@ -1,0 +1,43 @@
+{
+  "build": "h031d066_6",
+  "build_number": 6,
+  "channel": "https://conda.anaconda.org/bioconda/linux-64",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=12"
+  ],
+  "extracted_package_dir": "/home/LC/kollad01/.conda/pkgs/structure-2.3.4-h031d066_6",
+  "features": "",
+  "files": [
+    "bin/structure"
+  ],
+  "fn": "structure-2.3.4-h031d066_6.tar.bz2",
+  "license": "MIT",
+  "link": {
+    "source": "/home/LC/kollad01/.conda/pkgs/structure-2.3.4-h031d066_6",
+    "type": 1
+  },
+  "md5": "a725f40e274cc2dcb2d75038f5033c1f",
+  "name": "structure",
+  "package_tarball_full_path": "/home/LC/kollad01/.conda/pkgs/structure-2.3.4-h031d066_6.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "bin/structure",
+        "path_type": "hardlink",
+        "sha256": "e274e34b79f872341b9c6ce83d2c9e521f390418dd4143a8c50ca22dddf02aec",
+        "sha256_in_prefix": "e274e34b79f872341b9c6ce83d2c9e521f390418dd4143a8c50ca22dddf02aec",
+        "size_in_bytes": 162776
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "structure",
+  "sha256": "74dfabf6d7ec927a1a054d096e7a103414a06fd14d4e82c2cd339a3c27ea1bfd",
+  "size": 82451,
+  "subdir": "linux-64",
+  "timestamp": 1684234277568,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/bioconda/linux-64/structure-2.3.4-h031d066_6.tar.bz2",
+  "version": "2.3.4"
+}

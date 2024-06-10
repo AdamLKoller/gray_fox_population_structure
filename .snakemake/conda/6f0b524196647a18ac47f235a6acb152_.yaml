@@ -1,0 +1,10 @@
+name: preprocessing
+
+channels:
+  - bioconda
+
+dependencies:
+  - bowtie2
+  - samtools
+  
+  

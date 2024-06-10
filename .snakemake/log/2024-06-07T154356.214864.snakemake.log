@@ -1,0 +1,56 @@
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however crucial for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment envs/preprocessing.yml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /home/LC/kollad01/gray_fox_east_structure/rules/../envs/preprocessing.yml:
+Command:
+conda env create --quiet --file "/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/3e386af646b80f0949415db201626af3_.yaml" --prefix "/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/3e386af646b80f0949415db201626af3_"
+Output:
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... 
+Building graph of deps:   0%|                                                                          | 0/6 [00:00<?, ?it/s]
+Examining bowtie2==2.5.4:   0%|                                                                        | 0/6 [00:00<?, ?it/s]
+Examining @/linux-64::__archspec==1=x86_64:  17%|███████▋                                      | 1/6 [00:00<00:00, 22.71it/s]
+Examining @/linux-64::__unix==0=0:  33%|██████████████████▎                                    | 2/6 [00:00<00:00, 45.24it/s]
+Examining @/linux-64::__linux==5.15.0=0:  50%|████████████████████████▌                        | 3/6 [00:00<00:00, 67.66it/s]
+Examining @/linux-64::__glibc==2.35=0:  67%|██████████████████████████████████                 | 4/6 [00:00<00:00, 89.95it/s]
+Examining samtools==1.20-0:  83%|██████████████████████████████████████████████████▊          | 5/6 [00:00<00:00, 112.13it/s]
+                                                                                                                             
+
+Determining conflicts:   0%|                                                                           | 0/6 [00:00<?, ?it/s]
+Examining conflict for bowtie2 samtools:   0%|                                                         | 0/6 [00:00<?, ?it/s]
+                                                                                                                             
+Found conflicts! Looking for incompatible packages.
+This can take several minutes.  Press CTRL-C to abort.
+failed
+Solving environment: ...working... 
+Building graph of deps:   0%|                                                                          | 0/6 [00:00<?, ?it/s]
+Examining bowtie2==2.5.4:   0%|                                                                        | 0/6 [00:00<?, ?it/s]
+Examining @/linux-64::__archspec==1=x86_64:  17%|███████▋                                      | 1/6 [00:00<00:00, 22.23it/s]
+Examining @/linux-64::__unix==0=0:  33%|██████████████████▎                                    | 2/6 [00:00<00:00, 44.26it/s]
+Examining @/linux-64::__linux==5.15.0=0:  50%|████████████████████████▌                        | 3/6 [00:00<00:00, 66.18it/s]
+Examining @/linux-64::__glibc==2.35=0:  67%|██████████████████████████████████                 | 4/6 [00:00<00:00, 87.97it/s]
+Examining samtools==1.20-0:  83%|██████████████████████████████████████████████████▊          | 5/6 [00:00<00:00, 109.64it/s]
+                                                                                                                             
+
+Determining conflicts:   0%|                                                                           | 0/6 [00:00<?, ?it/s]
+Examining conflict for bowtie2 samtools:   0%|                                                         | 0/6 [00:00<?, ?it/s]
+                                                                                                                             
+Found conflicts! Looking for incompatible packages.
+This can take several minutes.  Press CTRL-C to abort.
+failed
+
+UnsatisfiableError: The following specifications were found to be incompatible with each other:
+
+Output in format: Requested package -> Available versions
+
+Package xz conflicts for:
+samtools==1.20-0 -> htslib[version='>=1.20,<1.21.0a0'] -> xz[version='>=5.2.6,<6.0a0']
+bowtie2==2.5.4 -> python -> xz[version='>=5.2.10,<6.0a0|>=5.4.2,<6.0a0|>=5.4.5,<6.0a0|>=5.4.6,<6.0a0|>=5.2.8,<6.0a0|>=5.2.6,<6.0a0|>=5.2.5,<6.0a0|>=5.2.4,<6.0a0|>=5.2.3,<6.0a0']
+
+Package libgcc-ng conflicts for:
+bowtie2==2.5.4 -> libgcc-ng[version='>=12']
+bowtie2==2.5.4 -> perl -> libgcc-ng[version='>=11.2.0|>=7.2.0|>=7.5.0|>=7.3.0']
+
+

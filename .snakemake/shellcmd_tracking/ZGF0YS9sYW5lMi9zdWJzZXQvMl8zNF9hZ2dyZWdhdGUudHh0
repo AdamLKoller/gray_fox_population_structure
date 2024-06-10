@@ -1,0 +1,4 @@
+
+        trim2bRAD_2barcodes_dedup.pl input=data/lane2/subset/34_S34_L002_R1_001.fastq site=".{12}CGA.{6}TGC.{12}|.{12}GCA.{6}TCG.{12}" adaptor="AGATC?" sampleID=100 deduplicate=1 bc=[ATGC]{4}
+        > data/lane2/subset/2_34_aggregate.txt
+        

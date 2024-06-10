@@ -1,0 +1,9 @@
+name: analyses
+channels:
+ - conda-forge
+dependencies:
+ - r-base
+ - r-tess3r
+ - r-maps
+ - r-Rgraphviz
+ 

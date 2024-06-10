@@ -1,0 +1,11 @@
+prefix=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/5a9f9d52ae538974714638ca500ef74e_
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${libdir}
+includedir=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/5a9f9d52ae538974714638ca500ef74e_/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.3
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

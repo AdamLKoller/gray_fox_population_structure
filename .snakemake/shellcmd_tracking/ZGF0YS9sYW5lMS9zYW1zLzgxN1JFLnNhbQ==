@@ -1,0 +1,3 @@
+
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x data/ref_genome/UCinero_ref -U data/lane1/deduped/817RE.dedup -S data/lane1/sams/817RE.sam
+        

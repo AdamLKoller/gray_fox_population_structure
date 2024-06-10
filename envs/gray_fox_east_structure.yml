@@ -1,0 +1,9 @@
+name: gray_fox_east_structure
+channels:
+- bioconda
+- conda-forge
+
+dependencies:
+- python
+- pandas
+- snakemake-minimal

@@ -1,0 +1,11 @@
+prefix=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/f35050a180b8eb90f5a3405fd5c4a645_
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: kadm-server
+Description: Kerberos administration server library
+Version: 1.19.2
+Requires.private: kdb mit-krb5-gssapi
+Cflags: -I${includedir}
+Libs: -L${libdir} -lkadm5srv_mit

@@ -1,0 +1,1 @@
+gzip -d -k data/lane2/subset/10_S10_L002_R1_001.fastq.gz

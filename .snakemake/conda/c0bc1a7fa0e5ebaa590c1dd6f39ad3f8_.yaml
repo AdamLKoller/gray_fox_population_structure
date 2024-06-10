@@ -1,0 +1,6 @@
+name: gray_fox_east_structure
+channels:
+  - bioconda
+
+dependencies:
+  - bowtie2

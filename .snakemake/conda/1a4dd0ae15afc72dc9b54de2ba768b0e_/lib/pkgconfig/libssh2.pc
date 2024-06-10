@@ -1,0 +1,17 @@
+###########################################################################
+# libssh2 installation details
+###########################################################################
+
+prefix=/home/LC/kollad01/gray_fox_east_structure/.snakemake/conda/1a4dd0ae15afc72dc9b54de2ba768b0e_
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libssh2
+URL: https://www.libssh2.org/
+Description: Library for SSH-based communication
+Version: 1.11.0
+Requires.private: libssl,libcrypto,zlib,zlib
+Libs: -L${libdir} -lssh2 
+Libs.private: 
+Cflags: -I${includedir}

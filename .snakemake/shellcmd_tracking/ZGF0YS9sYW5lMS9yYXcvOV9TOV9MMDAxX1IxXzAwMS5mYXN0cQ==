@@ -1,0 +1,1 @@
+gzip -d -k data/lane1/raw/9_S9_L001_R1_001.fastq.gz
