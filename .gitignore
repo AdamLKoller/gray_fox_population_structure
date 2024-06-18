@@ -5,3 +5,4 @@ data/ref_genome/*
 programs/*
 .*
 .snakemake/
+figures/

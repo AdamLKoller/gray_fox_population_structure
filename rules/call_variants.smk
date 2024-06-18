@@ -20,6 +20,6 @@ rule call_genotypes:
         
     shell:
         '''
-        angsd -b {input.list_of_bams} -gl 2 -domajorminor 1 -snp_pval 1e-6 -domaf 1 -minmaf 0.05 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd 340 -doCounts 1 -doDepth 1 -maxDepth 1000 -dumpCounts 2 -doPost 1 -doGeno 4 -postCutoff 0.6 -out data/genotypes/geno
+        angsd -b {input.list_of_bams} -gl 2 -domajorminor 1 -snp_pval 1e-6 -domaf 1 -minmaf 0.05 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd 254 -doCounts 1 -doDepth 1 -maxDepth 1000 -dumpCounts 2 -doPost 1 -doGeno 4 -postCutoff 0.6 -out data/genotypes/geno
     '''
     

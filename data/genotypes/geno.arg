@@ -1,6 +1,6 @@
 	-> angsd version: 0.935 (htslib: 1.12) build(Mar 28 2021 01:00:43)
-	-> angsd -b data/merged_bams/bams.txt -gl 2 -domajorminor 1 -snp_pval 1e-6 -domaf 1 -minmaf 0.05 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd 340 -doCounts 1 -doDepth 1 -maxDepth 1000 -dumpCounts 2 -doPost 1 -doGeno 4 -postCutoff 0.6 -out data/genotypes/geno 
-	-> Fri Jun  7 19:57:23 2024
+	-> angsd -b data/merged_bams/bams.txt -gl 2 -domajorminor 1 -snp_pval 1e-6 -domaf 1 -minmaf 0.05 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd 254 -doCounts 1 -doDepth 1 -maxDepth 1000 -dumpCounts 2 -doPost 1 -doGeno 4 -postCutoff 0.6 -out data/genotypes/geno 
+	-> Tue Jun 18 07:31:25 2024
 ----------------
 multiReader.cpp:
 	-nLines	50	(Number of lines to read)
@@ -64,7 +64,7 @@ abcFilter.cpp:
 	-sites		(null)	(File containing sites to keep (chr regStart regStop))
 	-sites		(null)	(File containing sites to keep (chr pos major minor))
 	-sites		(null)	(File containing sites to keep (chr pos major minor af ac an))
-	-minInd		340	Only use site if atleast minInd of samples has data
+	-minInd		254	Only use site if atleast minInd of samples has data
 	-setMinDepthInd	1	Only use site if atleast minInd of samples has this minimum depth 
 	-capDepth	-1	Only use the first capDepth bases
 	-strict	1	 (experimental)
@@ -82,7 +82,7 @@ abcCounts.cpp:
 				 -1 indicates no filtering)
 	-setMinDepthInd	-1	(If depth persample is smaller then individual is removed from analysis (from site).
 				 -1 indicates no filtering)
-	-minInd		340	(Discard site if effective sample size below value.
+	-minInd		254	(Discard site if effective sample size below value.
 				 0 indicates no filtering)
 	-setMaxDiffObs	0	(Discard sites where we observe to many different alleles.
 				 0 indicates no filtering)
@@ -112,7 +112,7 @@ abcGL.cpp:
 	-trim		0		(zero means no trimming)
 	-tmpdir		angsd_tmpdir/	(used by SOAPsnp)
 	-errors		(null)		(used by SYK)
-	-minInd		340		(0 indicates no filtering)
+	-minInd		254		(0 indicates no filtering)
 
 Filedumping:
 	-doGlf	3
@@ -135,7 +135,7 @@ abcGL.cpp:
 	-trim		0		(zero means no trimming)
 	-tmpdir		angsd_tmpdir/	(used by SOAPsnp)
 	-errors		(null)		(used by SYK)
-	-minInd		340		(0 indicates no filtering)
+	-minInd		254		(0 indicates no filtering)
 
 Filedumping:
 	-doGlf	3
@@ -198,7 +198,7 @@ abcCallGenotypes.cpp:
 	-geno_minDepth=-1	(-1 indicates no cutof)
 	-geno_maxDepth=-1	(-1 indicates no cutof)
 	-geno_minMM=-1.000000	(minimum fraction af major-minor bases)
-	-minInd=340	(only keep sites if you call genotypes from this number of individuals)
+	-minInd=254	(only keep sites if you call genotypes from this number of individuals)
 
 	NB When writing the posterior the -postCutoff is not used
 	NB geno_minDepth requires -doCounts
@@ -218,5 +218,5 @@ abcHetPlas.cpp:
 		->"data/genotypes/geno.depthSample"
 		->"data/genotypes/geno.depthGlobal"
 
-	[ALL done] cpu-time used =  1210.00 sec
-	[ALL done] walltime used =  1210.00 sec
+	[ALL done] cpu-time used =  760.30 sec
+	[ALL done] walltime used =  760.00 sec

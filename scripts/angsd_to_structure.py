@@ -31,16 +31,15 @@ def angsd_to_structure(args):
     Transforms ANGSD genotype data to input file for STRUCTURE
     """
     df = pd.read_table(args.geno, header=None)
-    df = df.drop([0, 1, 458], axis=1).T
-    df.index = range(456)
+    df = df.drop([0, 1, len(df.columns)-1], axis=1).T
+    df.index = range(len(df))
     df_meta = pd.read_csv(args.meta)
-    df_meta = df_meta[df_meta.is_replicate == False]
-    df_meta = df_meta[['bam_id', "Sample_ID"]]
-    df = pd.merge(df, df_meta, left_index=True, right_on="bam_id")
+    df_meta = df_meta[df_meta.to_exclude == False]
+    df_meta = df_meta[["Sample_ID"]]
+    df = pd.merge(df, df_meta, left_index=True, right_index=True)
     df.index = df.Sample_ID
     df = df.drop(
         [
-            "bam_id",
             "Sample_ID"
             
         ],
@@ -51,7 +50,7 @@ def angsd_to_structure(args):
     df_r = df.applymap(get_right_base)
     df_cat = pd.concat([df_l, df_r], ignore_index=False)
     df_cat = df_cat.sort_index()
-    df_cat = pd.concat([pd.Series([1] * 890, name='population', index = df_cat.index), df_cat], axis=1)
+    #df_cat = pd.concat([pd.Series([1] * len(df_cat), name='population', index = df_cat.index), df_cat], axis=1)
     df_cat = df_cat.replace({'A':1,'T':2,'C':3,'G':4,'N':-1})
     df_cat.to_csv(args.output,sep='\t',index=False,header=True)
     

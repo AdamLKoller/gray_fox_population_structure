@@ -1,0 +1,49 @@
+# This document produced by structureHarvester core version vB.1 July 2022
+# http://www.structureharvester.com/
+# https://github.com/dentearl/structureHarvester/
+# http://taylor0.biology.ucla.edu/structureHarvester
+# http://users.soe.ucsc.edu/~dearl/software/structureHarvester
+# Written by Dent Earl, dearl (a) soe ucsc edu.
+# CITATION:
+# Earl, Dent A. and vonHoldt, Bridgett M. (2012)
+# STRUCTURE HARVESTER: a website and program for visualizing
+# STRUCTURE output and implementing the Evanno method.
+# Conservation Genetics Resources 4(2) 359-361. DOI: 10.1007/s12686-011-9548-7
+# Core version: vB.1 July 2022
+# File generated at 2024-Jun-18 10:47:06 CDT
+#
+
+##########
+# K	Reps	mean est. LnP(Data)	stdev est. LnP(Data)
+1	1	-620202.900000	0.000000
+2	1	-612778.500000	0.000000
+3	1	-606557.100000	0.000000
+4	1	-604843.700000	0.000000
+5	1	-603665.600000	0.000000
+6	1	-602730.000000	0.000000
+7	1	-602139.900000	0.000000
+8	1	-600959.700000	0.000000
+9	1	-600556.000000	0.000000
+10	1	-600185.200000	0.000000
+
+##########
+# File name	Run #	K	Est. Ln prob. of data	Mean value of Ln likelihood	Variance of Ln likelihood
+structure_output_9_f	9	9	-600556.0	-595126.8	10858.5
+structure_output_4_f	4	4	-604843.7	-602338.1	5011.2
+structure_output_1_f	1	1	-620202.9	-619613.9	1178.2
+structure_output_6_f	6	6	-602730.0	-598939.6	7580.9
+structure_output_5_f	5	5	-603665.6	-600403.3	6524.6
+structure_output_7_f	7	7	-602139.9	-597546.8	9186.0
+structure_output_8_f	8	8	-600959.7	-596136.5	9646.4
+structure_output_2_f	2	2	-612778.5	-611468.7	2619.5
+structure_output_3_f	3	3	-606557.1	-604653.6	3807.1
+structure_output_10_f	10	10	-600185.2	-593838.8	12692.8
+
+Software written by Dent Earl while at EEB Dept, UCLA, BME Dept UCSC
+dearl (a) soe ucsc edu
+CITATION:
+Earl, Dent A. and vonHoldt, Bridgett M. (2012)
+STRUCTURE HARVESTER: a website and program for visualizing
+STRUCTURE output and implementing the Evanno method.
+# Conservation Genetics Resources 4(2) 359-361. DOI: 10.1007/s12686-011-9548-7
+Core version: vB.1 July 2022

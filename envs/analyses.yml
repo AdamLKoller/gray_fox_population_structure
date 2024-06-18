@@ -4,4 +4,8 @@ channels:
  - bioconda
 dependencies:
  - structure
- 
+ - matplotlib
+ - pandas
+ - scikit-learn
+ - geopandas
+ - pykrige
