@@ -1,6 +1,6 @@
 	-> angsd version: 0.935 (htslib: 1.12) build(Mar 28 2021 01:00:43)
 	-> angsd -b data/merged_bams/bams.txt -gl 2 -domajorminor 1 -snp_pval 1e-6 -domaf 1 -minmaf 0.05 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd 254 -doCounts 1 -doDepth 1 -maxDepth 1000 -dumpCounts 2 -doPost 1 -doGeno 4 -postCutoff 0.6 -out data/genotypes/geno 
-	-> Tue Jun 18 07:31:25 2024
+	-> Tue Jun 18 16:25:11 2024
 ----------------
 multiReader.cpp:
 	-nLines	50	(Number of lines to read)
@@ -218,5 +218,5 @@ abcHetPlas.cpp:
 		->"data/genotypes/geno.depthSample"
 		->"data/genotypes/geno.depthGlobal"
 
-	[ALL done] cpu-time used =  760.30 sec
-	[ALL done] walltime used =  760.00 sec
+	[ALL done] cpu-time used =  763.67 sec
+	[ALL done] walltime used =  764.00 sec

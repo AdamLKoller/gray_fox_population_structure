@@ -16,7 +16,8 @@ rule all:
         "figures/heterozygosity_map.png",
         "data/genotypes/ngs_relate_out",
         "tables/deduped_reads.csv",
-        "tables/trimmed_reads.csv"
+        "tables/trimmed_reads.csv",
+        expand("tables/pairwise_fst_{k}", k = range(2,11))
         
 
 

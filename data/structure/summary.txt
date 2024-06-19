@@ -10,34 +10,34 @@
 # STRUCTURE output and implementing the Evanno method.
 # Conservation Genetics Resources 4(2) 359-361. DOI: 10.1007/s12686-011-9548-7
 # Core version: vB.1 July 2022
-# File generated at 2024-Jun-18 10:47:06 CDT
+# File generated at 2024-Jun-18 20:28:18 CDT
 #
 
 ##########
 # K	Reps	mean est. LnP(Data)	stdev est. LnP(Data)
 1	1	-620202.900000	0.000000
-2	1	-612778.500000	0.000000
-3	1	-606557.100000	0.000000
-4	1	-604843.700000	0.000000
-5	1	-603665.600000	0.000000
-6	1	-602730.000000	0.000000
-7	1	-602139.900000	0.000000
-8	1	-600959.700000	0.000000
-9	1	-600556.000000	0.000000
-10	1	-600185.200000	0.000000
+2	1	-612789.300000	0.000000
+3	1	-606552.300000	0.000000
+4	1	-605600.400000	0.000000
+5	1	-603645.000000	0.000000
+6	1	-603303.700000	0.000000
+7	1	-601956.700000	0.000000
+8	1	-601105.500000	0.000000
+9	1	-600165.300000	0.000000
+10	1	-600081.900000	0.000000
 
 ##########
 # File name	Run #	K	Est. Ln prob. of data	Mean value of Ln likelihood	Variance of Ln likelihood
-structure_output_9_f	9	9	-600556.0	-595126.8	10858.5
-structure_output_4_f	4	4	-604843.7	-602338.1	5011.2
-structure_output_1_f	1	1	-620202.9	-619613.9	1178.2
-structure_output_6_f	6	6	-602730.0	-598939.6	7580.9
-structure_output_5_f	5	5	-603665.6	-600403.3	6524.6
-structure_output_7_f	7	7	-602139.9	-597546.8	9186.0
-structure_output_8_f	8	8	-600959.7	-596136.5	9646.4
-structure_output_2_f	2	2	-612778.5	-611468.7	2619.5
-structure_output_3_f	3	3	-606557.1	-604653.6	3807.1
-structure_output_10_f	10	10	-600185.2	-593838.8	12692.8
+structure_output_9_f	9	9	-600165.3	-594763.5	10803.7
+structure_output_4_f	4	4	-605600.4	-602720.0	5760.8
+structure_output_1_f	1	1	-620202.9	-619614.5	1176.7
+structure_output_6_f	6	6	-603303.7	-598949.4	8708.6
+structure_output_5_f	5	5	-603645.0	-600406.8	6476.5
+structure_output_7_f	7	7	-601956.7	-597572.2	8769.0
+structure_output_8_f	8	8	-601105.5	-596337.7	9535.6
+structure_output_2_f	2	2	-612789.3	-611470.6	2637.4
+structure_output_3_f	3	3	-606552.3	-604657.5	3789.5
+structure_output_10_f	10	10	-600081.9	-593911.6	12340.7
 
 Software written by Dent Earl while at EEB Dept, UCLA, BME Dept UCSC
 dearl (a) soe ucsc edu

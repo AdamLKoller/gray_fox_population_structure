@@ -1,4 +1,5 @@
 rule get_refgenome:
+    # Downloads the gray fox reference genome from NCBI
     output:
         'data/ref_genome/GCA_032313775.1_UCinereo1.0_genomic.fna'
     params:
@@ -11,6 +12,7 @@ rule get_refgenome:
         """
         
 rule build_genome:
+    # Builds the reference genome index files neccesary for Bowtie2 alignment
     input:
         reference = 'data/ref_genome/GCA_032313775.1_UCinereo1.0_genomic.fna'
         
@@ -24,7 +26,6 @@ rule build_genome:
     params:
         basename = 'data/ref_genome/UCinero_ref'
     shell: 
-        '''
+        """
         bowtie2-build {input.reference} {params.basename} -p 35 
-        touch build_genome_checkpoint.txt
-        '''
+        """

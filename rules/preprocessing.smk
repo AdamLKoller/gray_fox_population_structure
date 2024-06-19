@@ -1,6 +1,7 @@
 from subprocess import check_output
 
-rule decompress:
+rule decompress_fastq:
+    # Decompresses raw .fastq files
     input:
         "data/lane{lane}/raw/{library}_S{library}_L00{lane}_R1_001.fastq.gz"
     output:
@@ -8,10 +9,13 @@ rule decompress:
     conda:
         "../envs/preprocessing.yml"
     shell:
-        "gzip -d -k {input}"
+        """
+        gzip -d -k {input}
+        """
         
 rule demultiplex:
-    # export PATH="/home/LC/kollad01/gray_fox_east_structure/programs/2bRAD_denovo/:$PATH"
+    # Demultiplexes reads according to their 4bp barcode
+    # This step creates extra files not associated with a sample (will be removed later)
     input:
         "data/lane{lane}/raw/{library}_S{library}_L00{lane}_R1_001.fastq"
     output:
@@ -20,12 +24,15 @@ rule demultiplex:
         "../envs/preprocessing.yml"
         
     shell:
-        '''
+        """
         trim2bRAD_2barcodes_dedup.pl input={input} site=".{{12}}CGA.{{6}}TGC.{{12}}|.{{12}}GCA.{{6}}TCG.{{12}}" adaptor="AGATC?" sampleID=100 deduplicate=1 bc=[ATGC]{{4}} &> {output}
-        '''
+        """
 
         
 def get_sample_name(library,barcode):
+    """
+    Helper function for the `clean_and_rename` rule
+    """
     try:
         row = meta.loc[(meta.library==library) & (meta.barcode==barcode)]
         return row.Sample_ID.values[0]
@@ -33,6 +40,8 @@ def get_sample_name(library,barcode):
         return None
     
 rule clean_and_rename:
+    # Removes extra files from demultiplexing that were not associated with a sample
+    # Those that are associated with a sample are renamed and moved to the deduped/ directory
     input:
         expand("data/lane{lane}/raw/{library}_log.txt", lane=[1,2], library = range(1,39))
         
@@ -54,6 +63,7 @@ rule clean_and_rename:
                         print(directory+filename, 'has been removed')
         
 rule count_deduped_reads:
+    # Counts the number of reads for each deduped sample and stores in tables/deduped_reads.csv
     input:
         expand("data/lane{lane}/deduped/{sample}.dedup", lane=[1,2], sample=samples)
     output:
@@ -70,6 +80,8 @@ rule count_deduped_reads:
             deduped_reads_file.write(f'{sample_id},{read_count_l1},{read_count_l2}\n'.replace(' ',''))
 
 rule trim_reads:
+    # Trims low-quality bp at the end of reads using cutadapt. 
+    # Reads with < 25bp of quality bases are removed entirely
     input:
         "data/lane{lane}/deduped/{sample}.dedup"
     output:
@@ -82,9 +94,14 @@ rule trim_reads:
         """
 
 def wc(filename):
+    """
+    helper function for `count_trimmed_reads`
+    gets the word count for a file
+    """
     return int(check_output(["wc", "-l", filename]).split()[0])
         
 rule count_trimmed_reads:
+    # Counts the number of reads for each trimmed sample and stores in tables/trimmed_reads.csv
     input:
         expand("data/lane{lane}/trimmed/{sample}.trim", lane=[1,2], sample=samples)
     output:
@@ -100,9 +117,8 @@ rule count_trimmed_reads:
             read_count_l2 = wc(file_l2.replace(' ',''))//4
             trimmed_reads_file.write(f'{sample_id},{read_count_l1},{read_count_l2}\n'.replace(' ',''))
                     
-                    
-        
 rule align_reads_to_ref:
+    # Aligns reads to the gray fox reference genome using bowtie2
     input:
         ref_idx1 = 'data/ref_genome/UCinero_ref.1.bt2',
         ref_idx2 = 'data/ref_genome/UCinero_ref.2.bt2',
@@ -119,10 +135,14 @@ rule align_reads_to_ref:
     params:
         genome_basename = 'data/ref_genome/UCinero_ref'
     shell:
-        '''
-        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x {params.genome_basename} -U {input.read_file} -S {output.sam} > {output.log}
-        '''
+        """
+        bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x {params.genome_basename} -U {input.read_file} -S {output.sam} &> {output.log}
+        """
+        
 rule merge_sams:
+    # Reads were demultiplexed, trimmed, and aligned in their respective lanes (lane 1 and lane 2)
+    # in order to detect biases between lanes. This rule merges sam files from the same sample between lane 1 and lane 2
+    # into a single sam file.
     input:
         lane1_file = "data/lane1/sams/{sample}.sam",
         lane2_file = "data/lane2/sams/{sample}.sam",
@@ -131,10 +151,12 @@ rule merge_sams:
     conda:
         "../envs/preprocessing.yml"
     shell:
-        "samtools merge -o {output} {input.lane1_file} {input.lane2_file}"
-        
+        """
+        samtools merge -o {output} {input.lane1_file} {input.lane2_file}
+        """
         
 rule convert_sams_to_bams:
+    # Converts sam files to bam files so that they can be used as input for ANGSD
     input:
         "data/merged_bams/{sample}.sam"
     output:
@@ -142,9 +164,12 @@ rule convert_sams_to_bams:
     conda:
         "../envs/preprocessing.yml"
     shell:
-        "samtools sort -O bam -o {output} {input}"
+        """
+        samtools sort -O bam -o {output} {input}
+        """
 
 rule build_bam_index_files:
+    # Creates bam index files
     input:
         "data/merged_bams/{sample}.bam"
     output:
@@ -152,9 +177,12 @@ rule build_bam_index_files:
     conda:
         "../envs/preprocessing.yml"
     shell:
-        "samtools index {input}"
+        """
+        samtools index {input}
+        """
           
 rule make_list_of_bams:
+    # Makes a list of bam file paths that will be used as input for ANGSD (see rules/call_variants.smk for ANGSD)
     input:
         bam_index_files = expand("data/merged_bams/{sample}.bam.bai",sample=samples),
         bam_files =expand("data/merged_bams/{sample}.bam", sample=samples)
@@ -164,5 +192,7 @@ rule make_list_of_bams:
     conda:
         "../envs/preprocessing.yml"
     shell:
-        "ls data/merged_bams/*.bam > data/merged_bams/bams.txt"
+        """
+        ls data/merged_bams/*.bam > data/merged_bams/bams.txt"
+        """
         
