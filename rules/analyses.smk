@@ -1,18 +1,9 @@
-rule unzip_geno_data:
-    # Unzip .geno.gz output from ANGSD (hard-call genotypes)
-    input:
-        "data/genotypes/geno.geno.gz",
-    output:
-        "data/genotypes/geno.geno"
-    shell:
-        """
-        gzip -d -k {input}
-        """
+import shutil
 
 rule prepare_data_for_structure:
     # Runs python script `angsd_to_structure` to transform ANGSD output into STRUCTURE input
     input:
-        geno = "data/genotypes/geno.geno",
+        geno = "data/genotypes/geno2.geno",
         meta = "config/meta_subset.csv"
     output:
         "data/structure/structure_input.tab"
@@ -20,6 +11,51 @@ rule prepare_data_for_structure:
         """
         python scripts/angsd_to_structure.py -g {input.geno} -m {input.meta} -o {output}
         """
+
+
+rule create_structure_parameter_files:
+    # Creates the parameter files used by STRUCTURE
+    input:
+        freq = "data/genotypes/freq",
+        meta = 'config/meta_subset.csv'
+    output:
+        mainparams = "data/structure/mainparams.txt",
+        extraparams = "data/structure/extraparams.txt"
+        
+    run:
+        # Get the number of loci using shell command
+        numloci = int(shell("wc -l < {input.freq}", read=True).strip())
+        numinds = len(pd.read_csv('config/meta_subset.csv').loc[pd.read_csv('config/meta_subset.csv').to_exclude ==False])
+
+        # Write mainparams file
+        with open(output.mainparams, 'w') as mainparams:
+            mainparams.write("#define MAXPOPS 10\n")
+            mainparams.write("#define BURNIN 10000\n")
+            mainparams.write("#define NUMREPS 25000\n")
+            mainparams.write("#define INFILE data/structure/structure_input.tab\n")
+            mainparams.write("#define OUTFILE data/structure/structure_output\n")
+            mainparams.write(f"#define NUMINDS {numinds}\n")
+            mainparams.write(f"#define NUMLOCI {numloci}\n")
+            mainparams.write("#define PLOIDY 2\n")
+            mainparams.write("#define MISSING -1\n")
+            mainparams.write("#define ONEROWPERIND 0\n")
+            mainparams.write("#define LABEL 0\n")
+            mainparams.write("#define POPDATA 0\n")
+            mainparams.write("#define POPFLAG 0\n")
+            mainparams.write("#define LOCDATA 0\n")
+            mainparams.write("#define PHENOTYPE 0\n")
+            mainparams.write("#define EXTRACOLS 0\n")
+            mainparams.write("#define MARKERNAMES 1\n")
+            mainparams.write("#define RECESSIVEALLELES 0\n")
+            mainparams.write("#define MAPDISTANCES 0\n")
+
+        # Write extraparams file
+        with open(output.extraparams, 'w') as extraparams:
+            extraparams.write("#define RANDOMIZE 0\n")
+            extraparams.write("#define NOADMIX 0\n")
+        
+
+        
         
 rule run_structure:
     # Runs STRUCTURE. Each k is designed to run in parallel.
@@ -28,18 +64,18 @@ rule run_structure:
         mainparams = "data/structure/mainparams.txt",
         extraparams = "data/structure/extraparams.txt"
     output:
-        "data/structure/structure_output_{k}_f"
+        "data/structure/structure_output_k{k}_rep{rep}_f"
     conda:
         "../envs/analyses.yml"
     shell:
         """
-        structure -m {input.mainparams} -e {input.extraparams} -K {wildcards.k} -o data/structure/structure_output_{wildcards.k}
+        structure -m {input.mainparams} -e {input.extraparams} -K {wildcards.k} -o data/structure/structure_output_k{wildcards.k}_rep{wildcards.rep} -D {wildcards.rep}
         """
         
 rule harvest_structure:
     # Uses structureHarvester to generate summary with the likelihood of the data given k
     input:
-        expand("data/structure/structure_output_{k}_f", k=range(1,11))
+        expand("data/structure/structure_output_k{k}_rep{rep}_f", k=range(1,11), rep=range(1,4))
     output:
         "data/structure/summary.txt"
     shell:
@@ -47,12 +83,38 @@ rule harvest_structure:
         structureHarvester.py --dir data/structure --out data/structure
         """
         
+rule pick_most_likely_reps:
+    # Copies the most likely rep for each value of K and puts into a new file `structure_output_{k}_best`
+    input:
+        expand("data/structure/structure_output_k{k}_rep{rep}_f", k=range(1,11), rep=range(1,4))
+    output:
+        expand("data/structure/structure_output_{k}_best", k=range(1,11))
+    run:
+        k_to_best_rep = {str(k):(None,float('-inf')) for k in range(1,11)}
+        for filename in os.listdir('data/structure'):
+            if filename.endswith('_f'):
+                k, rep = filename.split('/')[-1].split('_')[2][1:], filename.split('/')[-1].split('_')[-1]
+                file = open('data/structure/'+filename, 'r')
+                line = file.readline()
+                while 'Estimated Ln Prob of Data' not in line:
+                    line = file.readline()
+                likelihood = float(line.split(' = ')[-1])
+                if likelihood > k_to_best_rep[k][1]:
+                    k_to_best_rep[k] = ('data/structure/'+filename, likelihood)
+                    
+        for k, best_rep in k_to_best_rep.items():
+            print(f'The most likely rep for k={k} is {best_rep[0]} \t likelihood: {best_rep[1]}')
+            shutil.copyfile(best_rep[0], f"data/structure/structure_output_{k}_best".replace(' ',''))
+                
+       
+    
+        
         
 rule get_q_matrices:
     # Extracts the q-matrices from STRUCTURE's default output and stores into a csv for easy use later.
     # q-matrices show the proportion of each individual's ancestry to each of the k ancestral populations
     input:
-        "data/structure/structure_output_{k}_f"
+        "data/structure/structure_output_{k}_best"
     output:
         "data/structure/q_matrix_{k}"
     shell:
@@ -95,7 +157,7 @@ rule transform_angsd_for_PCA:
     # Encodes the homozygous for major allele as 0, heterozygous as 1, and homozygous minor as 2 (i.e. number of minor alleles)
     # Missing values are imputed with the average for that loci
     input:
-        geno = "data/genotypes/geno.geno",
+        geno = "data/genotypes/geno2.geno",
         meta = "config/meta_subset.csv"
     output:
         "data/genotypes/genotype_matrix.csv"
@@ -157,7 +219,7 @@ rule get_heterozygosity_map:
     # across the geographic landscape. Heterozygosity densities are interpolated using pykrig (ordinary kriging, linear)
     input:
         meta = "config/meta_subset.csv",
-        geno = "data/genotypes/geno.geno"
+        geno = "data/genotypes/geno2.geno"
     output:
         "figures/heterozygosity_map.png"
     conda:
@@ -170,7 +232,7 @@ rule get_heterozygosity_map:
 rule prepare_fst_input:
     # Calls the script `prepare_fst_input.py` to prepare input for the R package hierfstat (used to calculate pairwise Fst)
     input:
-        geno = "data/genotypes/geno.geno",
+        geno = "data/genotypes/geno2.geno",
         q_matrix = "data/structure/q_matrix_{k}",
         meta = "config/meta_subset.csv"
     output:

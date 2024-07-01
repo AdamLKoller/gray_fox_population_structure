@@ -6,8 +6,6 @@ rule decompress_fastq:
         "data/lane{lane}/raw/{library}_S{library}_L00{lane}_R1_001.fastq.gz"
     output:
         temp("data/lane{lane}/raw/{library}_S{library}_L00{lane}_R1_001.fastq")
-    conda:
-        "../envs/preprocessing.yml"
     shell:
         """
         gzip -d -k {input}
@@ -85,7 +83,7 @@ rule trim_reads:
     input:
         "data/lane{lane}/deduped/{sample}.dedup"
     output:
-        "data/lane{lane}/trimmed/{sample}.trim"
+        temp("data/lane{lane}/trimmed/{sample}.trim")
     conda:
         "../envs/preprocessing.yml"
     shell:
@@ -139,6 +137,35 @@ rule align_reads_to_ref:
         bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x {params.genome_basename} -U {input.read_file} -S {output.sam} &> {output.log}
         """
         
+rule get_alignment_rate_data:
+    # Gathers alignment rate statistics for each sample in stores in tables/aligned_reads.csv
+    input:
+        expand("data/lane{lane}/logs/{sample}_align.log", lane=[1,2], sample=samples)
+    output:
+        "tables/aligned_reads.csv",
+        
+    run:
+        shell("touch tables/aligned_reads.csv")
+        table_file = open("tables/aligned_reads.csv", 'w')
+        table_file.write("Sample_ID,align_in_lane1,aligned_0_times_lane1,aligned_exactly_once_lane1,aligned_more_than_once_lane1,overall_alignment_rate_lane1,align_in_lane2,aligned_0_times_lane2,aligned_exactly_once_lane2,aligned_more_than_once_lane2,overall_alignment_rate_lane2\n")
+        
+        directory = "data/lane1/logs"
+        for sample_id in [x.split('/')[-1].split('_')[0] for x in os.listdir(directory) if x.endswith('align.log')]:
+            file_l1, file_l2 = f'data/lane1/logs/{sample_id}_align.log', f'data/lane2/logs/{sample_id}_align.log' 
+            file_l1, file_l2 = file_l1.replace(' ',''), file_l2.replace(' ','')
+            to_write = str(sample_id) + ','
+            for log_file in [file_l1, file_l2]:
+                log_file = open(log_file, 'r')
+                to_write += log_file.readline().split(' ')[0] + ','
+                log_file.readline()
+                to_write += log_file.readline().lstrip().split(' ')[0] + ','
+                to_write += log_file.readline().lstrip().split(' ')[0] + ','
+                to_write += log_file.readline().lstrip().split(' ')[0] + ','
+                to_write += str(float(log_file.readline().lstrip().split(' ')[0].rstrip('%'))/100) + ','
+            to_write = to_write.rstrip(',')
+            to_write += '\n'
+            table_file.write(to_write)
+                
 rule merge_sams:
     # Reads were demultiplexed, trimmed, and aligned in their respective lanes (lane 1 and lane 2)
     # in order to detect biases between lanes. This rule merges sam files from the same sample between lane 1 and lane 2
@@ -147,7 +174,7 @@ rule merge_sams:
         lane1_file = "data/lane1/sams/{sample}.sam",
         lane2_file = "data/lane2/sams/{sample}.sam",
     output:
-        "data/merged_bams/{sample}.sam"
+        temp("data/merged_bams/{sample}.sam")
     conda:
         "../envs/preprocessing.yml"
     shell:
@@ -193,6 +220,6 @@ rule make_list_of_bams:
         "../envs/preprocessing.yml"
     shell:
         """
-        ls data/merged_bams/*.bam > data/merged_bams/bams.txt"
+        ls data/merged_bams/*.bam > data/merged_bams/bams.txt
         """
         

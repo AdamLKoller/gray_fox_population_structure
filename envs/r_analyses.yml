@@ -1,7 +1,0 @@
-name: r_analyses
-channels:
-  - bioconda
-  - conda-forge
-  - r
-dependencies:
-  - r-argparse

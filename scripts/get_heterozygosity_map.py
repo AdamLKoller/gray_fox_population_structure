@@ -36,7 +36,6 @@ def get_heterozygosity_map(args):
     df = pd.read_table(args.geno, header=None)
     df = df.drop([0, 1, len(df.columns)-1], axis=1).T
     df.index = range(len(df))
-    df_meta = pd.read_csv(args.meta)
     df_hetero = df.applymap(is_heterozygous)
     df_hetero['Heterozygosity rate'] = df_hetero.mean(axis=1)
 
@@ -76,6 +75,9 @@ def get_heterozygosity_map(args):
     # Add color bar
     cbar = plt.colorbar(c, ax=ax)
     cbar.set_label('Heterozygosity rate', fontweight='bold', fontsize=12)
+    
+    # Plot points
+    ax.scatter(df_hetero['longitude'], df_hetero['latitude'], color='black', s=5)
 
     # Set axis limits and labels
     ax.set_ylim([30, 48.5])

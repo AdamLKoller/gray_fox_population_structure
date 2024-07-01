@@ -1,8 +1,8 @@
-data/lane1/*
+data/
 data/lane2/*
 data/merged_bams/*
 data/ref_genome/*
 programs/*
 .*
 .snakemake/
-figures/
+data/genotypes/*

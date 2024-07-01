@@ -47,6 +47,8 @@ def get_delta_k_plot(args):
     
     df['delta_k'] = df['mean est. LnP(Data)'].diff()
     
+    print(df)
+    
     # Create a figure with two subplots side by side
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
 
