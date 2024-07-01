@@ -1,0 +1,6 @@
+name: call_variants
+channels:
+  - conda-forge
+dependencies:
+  - r-pcadapt
+  - r-argparse

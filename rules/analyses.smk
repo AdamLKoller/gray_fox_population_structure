@@ -257,5 +257,31 @@ rule get_pairwise_fst:
         Rscript scripts/get_pairwise_fst.R -i {input} -o {output}
         """
         
+rule angsd_to_lfmm_format:
+    # Calls the script `angsd_to_lfmm.py` to convert the output of ANGSD into .lfmm format so that it is readable by pcadapt.
+    input:
+        geno = "data/genotypes/geno2.geno",
+        meta = "config/meta_subset.csv"
+    output:
+        "data/genotypes/geno2.lfmm"
+    shell:
+        """
+        python scripts/angsd_to_lfmm.py -g {input.geno} -m {input.meta} -o {output}
+        """
+        
+rule SNP_significance:
+    # Calls the R script `outlier_SNPs.R` which uses pcadapt to calculate the significance of each SNP in explaining genetic variation, captured through a PCA projection.
+    input:
+        "data/genotypes/geno2.lfmm"
+    output:
+        "figures/snp_significance.png"
+    conda:
+        "../envs/pcadapt.yml"
+    shell:
+        """
+        Rscript scripts/outlier_SNPs.R -i {input} -o {output}
+        """
+    
+        
         
     

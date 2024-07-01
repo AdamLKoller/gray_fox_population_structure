@@ -16,6 +16,7 @@ rule all:
         #"tables/deduped_reads.csv",
         #"tables/trimmed_reads.csv",
         expand("tables/pairwise_fst_{k}", k = range(2,11)),
+        "figures/snp_significance.png"
         #"tables/aligned_reads.csv"
         
 
