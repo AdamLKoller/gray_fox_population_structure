@@ -281,6 +281,20 @@ rule SNP_significance:
         """
         Rscript scripts/outlier_SNPs.R -i {input} -o {output}
         """
+        
+rule run_tess3r:
+    input:
+        lfmm = "data/genotypes/geno2.lfmm",
+        meta = "config/meta_subset.csv"
+    output:
+        "figures/tess3_barplot_map_1.png"
+    conda:
+        "../envs/tess3.yml"
+    shell:
+        """
+        Rscript scripts/run_tess3r.R -l {input.lfmm} -m {input.meta} -o figures/tess3
+        """
+    
     
         
         
