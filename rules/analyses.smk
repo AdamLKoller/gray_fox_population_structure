@@ -77,10 +77,11 @@ rule harvest_structure:
     input:
         expand("data/structure/structure_output_k{k}_rep{rep}_f", k=range(1,11), rep=range(1,4))
     output:
-        "data/structure/summary.txt"
+        "data/structure/summary.txt",
+        "data/structure/evanno.txt"
     shell:
         """
-        structureHarvester.py --dir data/structure --out data/structure
+        structureHarvester.py --dir data/structure --out data/structure --evanno
         """
         
 rule pick_most_likely_reps:
@@ -121,12 +122,11 @@ rule get_q_matrices:
         """
         python scripts/get_q_matrices.py -i {input} -o {output} -k {wildcards.k}
         """
-    
 
 rule get_delta_k_plot:
     # Uses the output from structureHarvester to generate k and delta k plots
     input:
-        "data/structure/summary.txt"
+        "data/structure/evanno.txt"
     output:
         "figures/delta_k.png"
     conda:
@@ -183,6 +183,37 @@ rule get_PCA_plot:
         python scripts/get_pca_plot.py -g {input.geno_matrix} -q {input.q_matrix} -o {output} -k {wildcards.k}
         """
         
+
+rule jitter_sample_locations:
+    # Calls the script `jitter_locations.py` to jitter samples with the same location.
+    # For some samples, just county or state data was collected. These points were given
+    # longitude and latitude values equal to the centroid of their county or state.
+    # We want to apply a jitter to these points so they do not overlap in visualizations.
+    # The jittered locations are also used in TESS3
+    input:
+        meta = 'config/meta_subset.csv'
+    output:
+        'config/meta_subset_jittered.csv'
+    shell:
+        """
+        python scripts/jitter_locations.py -m {input} -o {output}
+        """
+        
+rule add_apriori_pops:
+    # Calls the script `add_apriori_pops.py` to add another column 'POP'
+    # containing apriori sample group to the meta file as defined in 
+    # shapefiles in data/shapefiles/XYRed2017POP.*
+    input:
+        meta = 'config/meta_subset.csv'
+    output:
+        'config/meta_subset_apriori.csv'
+    conda:
+        "../envs/analyses.yml"
+    shell:
+        """
+        python scripts/add_apriori_pops.py -m {input} -o {output}
+        """ 
+        
 rule get_pie_map:
     # Calls the script `get_pie_map` which plots each individual as a pie chart with their proportion of ancestry
     # from each of the k populations. Individuals are plotted with their latitude-longitude coordinates.
@@ -212,6 +243,22 @@ rule get_combined_plots:
     shell:
         """
         python scripts/get_combined_plots.py -q {input.q_matrix} -g {input.geno_matrix} -m {input.meta} -o {output} -k {wildcards.k}
+        """
+    
+rule get_combined_plots_w_apriori:
+    # Calls the script `get_combined_plots.py` 
+    # which produces a single figure with the STRUCTURE bar plot, pie map, and PCA plot for each k.
+    input:
+        q_matrix = "data/structure/q_matrix_{k}",
+        meta = "config/meta_subset_apriori.csv",
+        geno_matrix = "data/genotypes/genotype_matrix.csv"
+    output:
+        "figures/structure_PCA_pie_apriori_{k}.png"
+    conda:
+        "../envs/analyses.yml"
+    shell:
+        """
+        python scripts/get_combined_plots_apriori.py -q {input.q_matrix} -g {input.geno_matrix} -m {input.meta} -o {output} -k {wildcards.k}
         """
     
 rule get_heterozygosity_map:
@@ -287,15 +334,50 @@ rule run_tess3r:
         lfmm = "data/genotypes/geno2.lfmm",
         meta = "config/meta_subset.csv"
     output:
-        "figures/tess3_barplot_map_1.png"
+        "figures/tess3_barplot_map_1.png",
+        "figures/tess3_cross_validation_plot.png"
     conda:
         "../envs/tess3.yml"
     shell:
         """
         Rscript scripts/run_tess3r.R -l {input.lfmm} -m {input.meta} -o figures/tess3
         """
+
+rule get_allele_stats:
+    # Calls the script `get_pairwise_fst.R` to generate pairwise_fst table (calculated according to Nei 1973)
+    input:
+        "data/genotypes/fst_input_{k}"
+    output:
+        "tables/allele_stats_{k}.tab"
+    conda:
+        '../envs/fstats.yml'
+    shell:
+        """
+        Rscript scripts/get_pop_allele_stats.R -i {input} -o {output}
+        """
+        
+# rule get_iqtree_input:
+#     input:
+#         geno = "data/genotypes/geno2.geno",
+#         meta = "config/meta_subset.csv"
+#     output:
+#         "data/genotypes/geno2.phy"
+#     shell:
+#         """
+#         python scripts/angsd_to_phyla.py -g {input.geno} -m {input.meta} -o {output}
+#         """
     
-    
+# rule run_iqtree:
+#     input:
+#         "data/genotypes/geno2.phy"
+#     output:
+#         "iqtree_checkpoint.txt"
+#     conda:
+#         '../envs/phyla.yml'
+#     shell:
+#         """
+#         iqtree -s {input} -m GTF+ASC -nt 30
+#         """
         
         
     

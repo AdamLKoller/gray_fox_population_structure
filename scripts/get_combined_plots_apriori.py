@@ -60,6 +60,7 @@ def get_pca_plot(ax, args):
     Produces PCA plot colored for a given q matrix
     """
     X = pd.read_csv(args.geno, index_col=0)
+    
     reduction_obj = PCA(n_components=2, random_state=0)
     projection = reduction_obj.fit_transform(X)
     projection = pd.DataFrame(projection, columns=['PCA1', 'PCA2'])
@@ -71,15 +72,21 @@ def get_pca_plot(ax, args):
     
     merged_df = pd.merge(projection, q_matrix, left_index=True, right_index=True)
     
+    meta = pd.read_csv(args.meta)
+    meta = meta[meta.to_exclude == False] 
+    meta.index = range(len(meta))
+    merged_df = pd.merge(merged_df, meta, left_index=True, right_index=True)
+    
     k = int(args.numpops)
     
+    
     colors = ['gold', 'mediumturquoise', 'orangered','magenta',
-              'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
-    for i in range(1, k+1):
-        cluster = merged_df.loc[merged_df.cluster_assignment == f'prop_{i}']
+              'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue', 'khaki','sienna']
+    for i, pop in enumerate(merged_df.POP.unique()):
+        cluster = merged_df.loc[merged_df.POP == pop]
         if len(cluster) > 3:
-            ax.scatter(x='PCA1', y='PCA2', color=colors[i-1], s=4, data=cluster, label=str(i))
-            plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[i-1], f'Cluster {i}')
+            ax.scatter(x='PCA1', y='PCA2', color=colors[i-1], s=4, data=cluster, label=pop)
+            #plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[i], f'{pop}')
     
     ax.set_xticks([])
     ax.set_yticks([])
@@ -104,14 +111,47 @@ def get_structure_plot(ax, args):
     df = df.apply(pd.to_numeric)
     df['max_prob'] = df.iloc[:, 1:].max(axis=1)
     df['cluster_assignment'] = df.iloc[:, 1:-1].idxmax(axis=1)
-    df = df.sort_values(by=['cluster_assignment', 'max_prob'], ascending=[True, False])
+    
+    meta = pd.read_csv(args.meta)
+    meta = meta[meta.to_exclude == False] 
+    meta.index = range(len(meta))
+    df = pd.merge(df, meta, left_index=True, right_index=True)
+    
+    df = df.sort_values(by=['POP','cluster_assignment', 'max_prob'], ascending=[True, True, False])
 
     # Plotting data
     colors = ['gold', 'mediumturquoise', 'orangered','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
     
-    df.iloc[:, 1:-2].plot(kind='bar', stacked=True, ax=ax, width=1.0, color=colors)
-    ax.set_xticks([])
+    df.plot(kind='bar', y=[x for x in df.columns if x.startswith('prop_') and x != 'prop_missing'], stacked=True, ax=ax, width=1.0, color=colors)
+    
+    # Getting x ticks
+    xticks = []
+    xticklabels = []
+    boundaries = []
+    current_pop = df['POP'].iloc[0]
+    last_pop_idx = 0
+
+    for idx, pop in enumerate(df['POP']):
+        if pop != current_pop:
+            xticks.append(last_pop_idx)
+            boundaries.append(last_pop_idx + (idx - last_pop_idx) // 2)
+            xticklabels.append(current_pop)
+            current_pop = pop
+            last_pop_idx = idx
+
+    # Add the last population
+    xticks.append(last_pop_idx)
+    boundaries.append(last_pop_idx + (len(df) - last_pop_idx) // 2)
+    xticklabels.append(current_pop)
+    
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([''] * len(xticks))  # Set empty labels for boundary ticks
+
+    # Set labels at the center of each population
+    for boundary, label in zip(boundaries, xticklabels):
+        ax.text(boundary, -0.01, label, ha='center', va='top', rotation=90, fontname='Arial', fontsize=10, transform=ax.get_xaxis_transform())
+
     ax.legend().set_visible(False)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)

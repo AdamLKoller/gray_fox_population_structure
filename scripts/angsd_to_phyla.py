@@ -1,8 +1,6 @@
 import pandas as pd
-from collections import Counter
-import numpy as np
-from sklearn.impute import SimpleImputer
 import argparse
+from collections import Counter
 
 
 def parser_arguments():
@@ -12,13 +10,11 @@ def parser_arguments():
         "-g", "--geno", help="path to input geno file from ANGSD", required=True
     )
     parser.add_argument(
-        "-m", "--meta", help="path meta data file", required=True
+        "-m", "--meta", help="path to the meta data file", required=True
     )
-  
     parser.add_argument(
         "-o", "--output", help="path to write output file", required=True
     )
-  
     args = par.parse_args()
 
     return args
@@ -26,16 +22,14 @@ def parser_arguments():
 
 def bases_to_number(bases: str, major_allele: str) -> int:
     if bases == "NN":
-        return np.nan
+        return '-'
     else:
-        return 2 - bases.count(major_allele)
+        return "1" if bases != major_allele*2 else "0"
+    
 
-
-def geno_to_genotype_matrix(args):
+def angsd_to_phyla(args):
     """
-    Transforms ANGSD genotype data to a matrix with 0s, 1s, and 2s
-    based on the number of minor alleles
-
+    Transforms ANGSD genotype data to input file for iqtree
     """
     df = pd.read_table(args.geno, header=None)
     df = df.drop([0, 1, len(df.columns)-1], axis=1).T
@@ -53,7 +47,6 @@ def geno_to_genotype_matrix(args):
         axis=1,
     )
 
-
     major_alleles = []
     for column_name in df.columns:
         column = df[column_name].to_list()
@@ -68,22 +61,19 @@ def geno_to_genotype_matrix(args):
         df[column_name] = df[column_name].apply(
             bases_to_number, major_allele=major_alleles[index]
         )
-
     
-    mean_imputer = SimpleImputer(missing_values=np.nan, strategy="mean")
+    phyla_out = open(args.output, 'w')
     
-    mat = mean_imputer.fit_transform(df)
-    X = pd.DataFrame(mat)
-    X.index = df.index
-
-    X.to_csv(args.output)
-
-    return X
-
+    phyla_out.write(f'{df.shape[0]}\t{df.shape[1]}\n')
+    
+    for index, row in df.iterrows():
+        row = ''.join(row.tolist())
+        phyla_out.write(f'{index}\t{row}\n')
+    
 
 def main():
     args = parser_arguments()
-    return geno_to_genotype_matrix(args)
+    return angsd_to_phyla(args)
 
 
 if __name__ == "__main__":

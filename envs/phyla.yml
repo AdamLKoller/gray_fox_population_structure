@@ -1,0 +1,5 @@
+name: phyla
+channels:
+  - bioconda
+dependencies:
+  - iqtree

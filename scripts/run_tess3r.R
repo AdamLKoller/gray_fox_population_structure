@@ -30,9 +30,18 @@ lfmm = read.table(xargs$input_lfmm, sep=" ")
 lfmm[lfmm == 9] = NA
 
 tess3.obj = tess3(X = lfmm, coord = coordinates, K = 1:10,
-                 method = "projected.ls", ploidy = 2, openMP.core.num=30)
+                 method = "projected.ls", ploidy = 2, rep=10, keep='best')
 
-my.colors <- c('orangered', 'mediumturquoise', 'magenta', 'gold', 'orange', 'red', 'aquamarine1', 'hotpink', 'limegreen', 'blue')
+my.colors <- c('orangered', 'mediumturquoise', 'gold', 'magenta', 'orange', 'red', 'aquamarine1', 'hotpink', 'limegreen', 'blue')
+
+
+par(mfrow = c(1, 1))
+png(paste0(xargs$output, '_cross_validation_plot.png'))
+plot(tess3.obj, pch = 19, col = "blue",
+     xlab = "Number of ancestral populations",
+     ylab = "Cross-validation score")
+dev.off()
+
 
 
 for (k in 1:10){
@@ -54,8 +63,15 @@ spatial_plot <- ggtess3Q(q.matrix, coordinates, col.palette = my.palette) +
   coord_sf() + 
   geom_sf(data = coordinates_sf, size = 0.2) + 
   labs(x = "Longitude", y = "Latitude") + 
-  theme_bw()
+  theme_bw() +
+  theme(axis.title.x = element_text(face = "bold", size = 5, family="Arial"),
+        axis.title.y = element_text(face = "bold", size = 5, family="Arial"),
+        axis.text.x = element_text(size = 4, family = "Arial", color = 'black'),
+        axis.text.y = element_text(size = 4, family = "Arial", color='black'),
+       panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
 
 ggsave(paste0(xargs$output, '_barplot_map_', k,'.png'), plot = spatial_plot, width = 3, height = 3, dpi = 300)
 
 }
+

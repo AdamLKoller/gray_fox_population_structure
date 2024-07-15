@@ -7,7 +7,7 @@ def parser_arguments():
     par = argparse.ArgumentParser()
     parser = par.add_argument_group("required arguments")
     parser.add_argument(
-        "-i", "--input", help="path to summary file from STRUCTURE harvester", required=True
+        "-i", "--input", help="path to evanno.txt file from STRUCTURE harvester", required=True
     )
     
     parser.add_argument(
@@ -29,23 +29,20 @@ def get_delta_k_plot(args):
     
     structure_summary_file = open(args.input)
     line = structure_summary_file.readline()
-    while not line.startswith('# K	Reps	mean est. LnP(Data)	stdev est. LnP(Data)'):
+    while not line.startswith("# K	Reps	Mean LnP(K)	Stdev LnP(K)	Ln'(K)	|Ln''(K)|	Delta K"):
         line = structure_summary_file.readline()
         
     line = structure_summary_file.readline()
     
-    df = pd.DataFrame(columns=['K', 'mean est. LnP(Data)', 'stdev est. LnP(Data)'])
+    df = pd.DataFrame(columns=['K', 'Reps', 'Mean LnP(K)','Stdev LnP(K)',"Ln'(K)", "|Ln''(K)|", 'delta_k'])
     
     i = 0
-    while not line.startswith('\n'):
-        k,reps,mean,stdev = line.strip().split('\t')
-        k,reps,mean,stdev = int(k), int(reps), float(mean), float(stdev)
-        df.loc[i]= [k, mean,stdev]
+    while not line.strip() == '':
+        k,reps,mean,stdev,first_order,second_order,delta_k = [float(x) if x != 'NA' else pd.NA for x in line.strip().split('\t') ]
+        df.loc[i]= [k,reps,mean,stdev,first_order,second_order,delta_k]
         i += 1
         line = structure_summary_file.readline()
     
-    
-    df['delta_k'] = df['mean est. LnP(Data)'].diff()
     
     print(df)
     
@@ -53,7 +50,7 @@ def get_delta_k_plot(args):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
 
     # First plot
-    ax1.errorbar(df['K'], df['mean est. LnP(Data)'], yerr=df['stdev est. LnP(Data)'], fmt='o',
+    ax1.errorbar(df['K'], df['Mean LnP(K)'], yerr=df['Stdev LnP(K)'], fmt='o',
                  color='blue', ecolor='lightgray', capsize=5, capthick=2)
     ax1.set_xlabel('K', fontname='Arial', fontweight='bold', fontstyle='italic', fontsize=16)
     ax1.set_ylabel(r'$\mathbf{Mean\ } \mathit{\mathbf{L(K)}}$', fontname='Arial', fontsize=16)

@@ -60,7 +60,7 @@ def get_pie_map(args):
 
     ax.text(-97.5, 40, 'U. c. ocythous',fontsize=12, fontstyle = 'italic')
     ax.text(-87.5, 32.5, 'U. c. floridanus',fontsize=12, fontstyle = 'italic')
-    ax.text(-87.5, 35.0, 'U. c. cineroargentus',fontsize=12, fontstyle = 'italic')
+    ax.text(-87.5, 35.0, 'U. c. cinereoargenteus',fontsize=12, fontstyle = 'italic')
 
     for idx, row in qmatrix.iterrows():
         proportions = row[1:k+1]
