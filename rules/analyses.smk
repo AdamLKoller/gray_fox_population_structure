@@ -191,9 +191,11 @@ rule jitter_sample_locations:
     # We want to apply a jitter to these points so they do not overlap in visualizations.
     # The jittered locations are also used in TESS3
     input:
-        meta = 'config/meta_subset.csv'
+        meta = 'config/meta_subset_apriori.csv'
     output:
         'config/meta_subset_jittered.csv'
+    conda:
+        "../envs/jitter.yml"
     shell:
         """
         python scripts/jitter_locations.py -m {input} -o {output}
@@ -239,7 +241,7 @@ rule get_combined_plots:
     output:
         "figures/structure_PCA_pie_{k}.png"
     conda:
-        "../envs/analyses.yml"
+        "../envs/plotting.yml"
     shell:
         """
         python scripts/get_combined_plots.py -q {input.q_matrix} -g {input.geno_matrix} -m {input.meta} -o {output} -k {wildcards.k}
@@ -250,12 +252,12 @@ rule get_combined_plots_w_apriori:
     # which produces a single figure with the STRUCTURE bar plot, pie map, and PCA plot for each k.
     input:
         q_matrix = "data/structure/q_matrix_{k}",
-        meta = "config/meta_subset_apriori.csv",
+        meta = 'config/meta_subset_jittered.csv',
         geno_matrix = "data/genotypes/genotype_matrix.csv"
     output:
         "figures/structure_PCA_pie_apriori_{k}.png"
     conda:
-        "../envs/analyses.yml"
+        "../envs/plotting.yml"
     shell:
         """
         python scripts/get_combined_plots_apriori.py -q {input.q_matrix} -g {input.geno_matrix} -m {input.meta} -o {output} -k {wildcards.k}

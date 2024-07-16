@@ -6,6 +6,7 @@ import numpy as np
 import argparse
 import matplotlib.gridspec as gridspec
 import geopandas as gpd
+import seaborn as sns
 
 def parser_arguments():
     par = argparse.ArgumentParser()
@@ -69,24 +70,28 @@ def get_pca_plot(ax, args):
     q_matrix = q_matrix.apply(pd.to_numeric)
     q_matrix['max_prob'] = q_matrix.iloc[:, 1:].max(axis=1)
     q_matrix['cluster_assignment'] = q_matrix.iloc[:, 1:-1].idxmax(axis=1)
+    q_matrix['Cluster'] = q_matrix['cluster_assignment'].apply(lambda x: x.split('_')[-1])
     
     merged_df = pd.merge(projection, q_matrix, left_index=True, right_index=True)
     
     meta = pd.read_csv(args.meta)
+    meta = meta.rename(columns={'POP': "Sampling Group"})
     meta = meta[meta.to_exclude == False] 
     meta.index = range(len(meta))
     merged_df = pd.merge(merged_df, meta, left_index=True, right_index=True)
     
     k = int(args.numpops)
     
+    colors = ['gold', 'mediumturquoise', 'orangered', 'magenta',
+              'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue', 'khaki', 'sienna']
     
-    colors = ['gold', 'mediumturquoise', 'orangered','magenta',
-              'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue', 'khaki','sienna']
-    for i, pop in enumerate(merged_df.POP.unique()):
-        cluster = merged_df.loc[merged_df.POP == pop]
+    scatter = sns.scatterplot(data=merged_df, x='PCA1', y='PCA2', hue='Cluster',
+                              style='Sampling Group', palette=colors[:k], ax=ax)
+    
+    for cluster_num in range(1,k+1):
+        cluster = merged_df.loc[q_matrix.Cluster == str(cluster_num)]
         if len(cluster) > 3:
-            ax.scatter(x='PCA1', y='PCA2', color=colors[i-1], s=4, data=cluster, label=pop)
-            #plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[i], f'{pop}')
+            plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[cluster_num-1], '')
     
     ax.set_xticks([])
     ax.set_yticks([])
@@ -96,11 +101,42 @@ def get_pca_plot(ax, args):
     print(f"Axes 1 explains {reduction_obj.explained_variance_[0]}% of the variance")
     print(f"Axes 2 explains {reduction_obj.explained_variance_[1]}% of the variance")
     
-    ax.set_xlabel(f'Axis 1 ({round(reduction_obj.explained_variance_[0],2)}%)', fontname='Arial', fontweight='bold', fontsize=10)
-    ax.set_ylabel(f'Axis 2 ({round(reduction_obj.explained_variance_[1],2)}%)', fontname='Arial', fontweight='bold', fontsize=10)
+    ax.set_xlabel(f'Axis 1 ({round(reduction_obj.explained_variance_[0], 2)}%)', fontname='Arial', fontweight='bold', fontsize=10)
+    ax.set_ylabel(f'Axis 2 ({round(reduction_obj.explained_variance_[1], 2)}%)', fontname='Arial', fontweight='bold', fontsize=10)
     
-    legend = ax.legend(title='Cluster')
-    plt.setp(legend.get_title(), fontsize=12, fontweight='bold')
+    # Remove the original legend
+    ax.get_legend().remove()
+    
+    ax.set_xlim(-5,14)
+    
+    # Update legend
+    handles, labels = ax.get_legend_handles_labels()
+    
+    # Separate handles and labels for clusters and sampling groups
+    cluster_handles = handles[1:k+1]
+    cluster_labels = labels[1:k+1]
+    sampling_group_handles = handles[k+2:]
+    sampling_group_labels = labels[k+2:]
+    
+    # Create custom legend with two columns
+    from matplotlib.legend import Legend
+
+    cluster_legend = Legend(ax, cluster_handles, cluster_labels, title='Cluster', loc='upper right', bbox_to_anchor=(0.6, 1), fontsize=10, frameon=False)
+    sampling_group_legend = Legend(ax, sampling_group_handles, sampling_group_labels, title='Sampling Group', loc='upper right', bbox_to_anchor=(1, 1), fontsize=10, frameon=False)
+    
+    ax.add_artist(cluster_legend)
+    ax.add_artist(sampling_group_legend)
+    
+    plt.setp(cluster_legend.get_title(), fontsize=12, fontweight='bold')
+    plt.setp(sampling_group_legend.get_title(), fontsize=12, fontweight='bold')
+    
+    for legend in [cluster_legend, sampling_group_legend]:
+        legend.get_frame().set_facecolor('none')
+        legend.get_frame().set_edgecolor('none')
+        
+    
+
+    
 
 def get_structure_plot(ax, args):
     """
@@ -116,6 +152,8 @@ def get_structure_plot(ax, args):
     meta = meta[meta.to_exclude == False] 
     meta.index = range(len(meta))
     df = pd.merge(df, meta, left_index=True, right_index=True)
+    
+    df['POP'] = pd.Categorical(df['POP'], ['MN_WI_ND','IA_NE','MO','KS_OK','AR','LA','IL_IN','MS','KY_TN', 'OH_WV','SC_NC','MI'])
     
     df = df.sort_values(by=['POP','cluster_assignment', 'max_prob'], ascending=[True, True, False])
 

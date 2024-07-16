@@ -1,0 +1,7 @@
+name: jitter
+channels:
+- conda-forge
+
+dependencies:
+- geopy
+- pandas
