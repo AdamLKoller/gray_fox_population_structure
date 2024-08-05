@@ -1,26 +1,44 @@
 from subprocess import check_output
 
+rule merge_libraries:
+    # Merges libraries across lanes prior to demultiplexing
+    input:
+        lane1_file = "data/lane1/{library}_S{library}_L001_R1_001.fastq.gz",
+        lane2_file = "data/lane2/{library}_S{library}_L002_R1_001.fastq.gz"
+    output:
+        temp("data/merged_reads/library_{library}.fastq.gz")
+    threads:
+        2
+    shell:
+        """
+        cat {input.lane1_file} {input.lane2_file} > {output} 
+        """
+        
+
 rule decompress_fastq:
     # Decompresses raw .fastq files
     input:
-        "data/lane{lane}/raw/{library}_S{library}_L00{lane}_R1_001.fastq.gz"
+        "data/merged_reads/library_{library}.fastq.gz"
     output:
-        temp("data/lane{lane}/raw/{library}_S{library}_L00{lane}_R1_001.fastq")
+        temp("data/merged_reads/library_{library}.fastq")
+    threads:
+        2
     shell:
         """
         gzip -d -k {input}
-        """
+        """        
         
 rule demultiplex:
     # Demultiplexes reads according to their 4bp barcode
     # This step creates extra files not associated with a sample (will be removed later)
     input:
-        "data/lane{lane}/raw/{library}_S{library}_L00{lane}_R1_001.fastq"
+        "data/merged_reads/library_{library}.fastq"
     output:
-        temp("data/lane{lane}/raw/{library}_log.txt")
+        "data/merged_reads/library_{library}_demulti_log.txt"
     conda:
         "../envs/preprocessing.yml"
-        
+    threads:
+        2
     shell:
         """
         trim2bRAD_2barcodes_dedup.pl input={input} site=".{{12}}CGA.{{6}}TGC.{{12}}|.{{12}}GCA.{{6}}TCG.{{12}}" adaptor="AGATC?" sampleID=100 deduplicate=1 bc=[ATGC]{{4}} &> {output}
@@ -41,56 +59,25 @@ rule clean_and_rename:
     # Removes extra files from demultiplexing that were not associated with a sample
     # Those that are associated with a sample are renamed and moved to the deduped/ directory
     input:
-        expand("data/lane{lane}/raw/{library}_log.txt", lane=[1,2], library = range(1,39))
+        expand("data/merged_reads/library_{library}_demulti_log.txt", library = range(1,39))
         
     output:
-        expand("data/lane{lane}/deduped/{sample}.dedup", lane=[1,2], sample=samples)
+        expand("data/merged_reads/{sample}.dedup", sample=samples)
        
     run:
-        for lane in ['1','2']:
-            directory = f'data/lane{lane}/raw/'.replace(' ','')
-            for filename in os.listdir(directory):
-                if filename.endswith('.tr0'):
-                    library, barcode = int(filename.split('_')[0]), filename.split('_')[-1][0:4]
-                    sample_name = get_sample_name(library, barcode)
-                    if sample_name:                        
-                        os.rename(directory+filename, f'data/lane{lane}/deduped/{sample_name}.dedup'.replace(' ',''))
-                        print(directory+filename, 'has been renamed to ', f'data/lane{lane}/deduped/{sample_name}.dedup'.replace(' ',''))
-                    else:        
-                        os.remove(directory+filename)
-                        print(directory+filename, 'has been removed')
-        
-rule count_deduped_reads:
-    # Counts the number of reads for each deduped sample and stores in tables/deduped_reads.csv
-    input:
-        expand("data/lane{lane}/deduped/{sample}.dedup", lane=[1,2], sample=samples)
-    output:
-        "tables/deduped_reads.csv"
-    run:
-        shell("touch tables/deduped_reads.csv")
-        deduped_reads_file = open("tables/deduped_reads.csv",'w')
-        deduped_reads_file.write("Sample_ID,deduped_count_lane1,deduped_count_lane2\n")
-        directory = 'data/lane1/deduped/'
-        for sample_id in [x.split('/')[-1].split('.')[0] for x in os.listdir(directory) if x.endswith('.dedup')]:
-            file_l1, file_l2 = f'data/lane1/deduped/{sample_id}.dedup', f'data/lane2/deduped/{sample_id}.dedup' 
-            read_count_l1 = wc(file_l1.replace(' ',''))//4
-            read_count_l2 = wc(file_l2.replace(' ',''))//4
-            deduped_reads_file.write(f'{sample_id},{read_count_l1},{read_count_l2}\n'.replace(' ',''))
-
-rule trim_reads:
-    # Trims low-quality bp at the end of reads using cutadapt. 
-    # Reads with < 25bp of quality bases are removed entirely
-    input:
-        "data/lane{lane}/deduped/{sample}.dedup"
-    output:
-        temp("data/lane{lane}/trimmed/{sample}.trim")
-    conda:
-        "../envs/preprocessing.yml"
-    shell:
-        """
-        cutadapt -q 15,15 -m 25 -o {output} {input}
-        """
-
+        directory = 'data/merged_reads/'
+        for filename in os.listdir(directory):
+            if filename.endswith('.tr0'):
+                library, barcode = int(filename.split('_')[1]), filename.split('_')[-1].rstrip('.tr0')
+                sample_name = get_sample_name(library, barcode)
+                if sample_name:                        
+                    os.rename(directory+filename, directory+sample_name+'.dedup')
+                    print(directory+filename, 'has been renamed to', directory+sample_name+'.dedup')
+                    
+                else:        
+                    os.remove(directory+filename)
+                    print(directory+filename, 'has been removed')
+                    
 def wc(filename):
     """
     helper function for `count_trimmed_reads`
@@ -98,22 +85,52 @@ def wc(filename):
     """
     return int(check_output(["wc", "-l", filename]).split()[0])
         
+        
+rule count_deduped_reads:
+    # Counts the number of reads for each deduped sample and stores in tables/deduped_reads.csv
+    input:
+        expand("data/merged_reads/{sample}.dedup", sample=samples)
+    output:
+        "tables/deduped_reads.csv"
+    run:
+        shell("touch tables/deduped_reads.csv")
+        deduped_reads_file = open("tables/deduped_reads.csv",'w')
+        deduped_reads_file.write("Sample_ID,deduped_count\n")
+        for file in [x for x in os.listdir('data/merged_reads') if x.endswith('.dedup')]:
+            read_count = wc('data/merged_reads/'+file) // 4
+            sample_id = file.split('/')[-1].split('.')[0]
+            deduped_reads_file.write(sample_id + ',' + str(read_count) + '\n')
+            
+rule trim_reads:
+    # Trims low-quality bp at the end of reads using cutadapt. 
+    # Reads with < 25bp of quality bases are removed entirely
+    input:
+        "data/merged_reads/{sample}.dedup"
+    output:
+        temp("data/merged_reads/{sample}.trim")
+    conda:
+        "../envs/preprocessing.yml"
+    shell:
+        """
+        echo "cutadapt:     $(cutadapt --version)" >> versions.txt
+        cutadapt -q 15,15 -m 25 -o {output} {input}
+        """
+
+
 rule count_trimmed_reads:
     # Counts the number of reads for each trimmed sample and stores in tables/trimmed_reads.csv
     input:
-        expand("data/lane{lane}/trimmed/{sample}.trim", lane=[1,2], sample=samples)
+        expand("data/merged_reads/{sample}.trim", sample=samples)
     output:
         "tables/trimmed_reads.csv"
     run:
         shell("touch tables/trimmed_reads.csv")
         trimmed_reads_file = open("tables/trimmed_reads.csv",'w')
-        trimmed_reads_file.write("Sample_ID,trimmed_count_lane1,trimmed_count_lane2\n")
-        directory = 'data/lane1/trimmed/'
-        for sample_id in [x.split('/')[-1].split('.')[0] for x in os.listdir(directory) if x.endswith('.trim')]:
-            file_l1, file_l2 = f'data/lane1/trimmed/{sample_id}.trim', f'data/lane2/trimmed/{sample_id}.trim' 
-            read_count_l1 = wc(file_l1.replace(' ',''))//4
-            read_count_l2 = wc(file_l2.replace(' ',''))//4
-            trimmed_reads_file.write(f'{sample_id},{read_count_l1},{read_count_l2}\n'.replace(' ',''))
+        trimmed_reads_file.write("Sample_ID,trimmed_count\n")
+        for file in [x for x in os.listdir('data/merged_reads') if x.endswith('.trim')]:
+            read_count = wc('data/merged_reads/' + file) // 4
+            sample_id = file.split('/')[-1].split('.')[0]
+            trimmed_reads_file.write(sample_id + ',' + str(read_count) + '\n')
                     
 rule align_reads_to_ref:
     # Aligns reads to the gray fox reference genome using bowtie2
@@ -124,64 +141,47 @@ rule align_reads_to_ref:
         ref_idx4 = 'data/ref_genome/UCinero_ref.4.bt2',
         ref_idx1_rev = 'data/ref_genome/UCinero_ref.rev.1.bt2',
         ref_idx2_rev = 'data/ref_genome/UCinero_ref.rev.2.bt2',
-        read_file = "data/lane{lane}/trimmed/{sample}.trim",
+        read_file = "data/merged_reads/{sample}.trim",
     output:
-        sam = temp("data/lane{lane}/sams/{sample}.sam"),
-        log = "data/lane{lane}/logs/{sample}_align.log"
+        sam = temp("data/merged_bams/{sample}.sam"),
+        log = temp("data/merged_bams/{sample}_align.log")
     conda:
         "../envs/align_reads_to_ref.yml"
     params:
         genome_basename = 'data/ref_genome/UCinero_ref'
     shell:
         """
+        echo "bowtie2:     $(bowtie2 --version)" >> versions.txt
         bowtie2 --no-unal --score-min L,16,1 --local -L 16 -x {params.genome_basename} -U {input.read_file} -S {output.sam} &> {output.log}
         """
         
 rule get_alignment_rate_data:
     # Gathers alignment rate statistics for each sample in stores in tables/aligned_reads.csv
     input:
-        expand("data/lane{lane}/logs/{sample}_align.log", lane=[1,2], sample=samples)
+        expand("data/merged_bams/{sample}_align.log", sample=samples)
     output:
         "tables/aligned_reads.csv",
         
     run:
+        
         shell("touch tables/aligned_reads.csv")
         table_file = open("tables/aligned_reads.csv", 'w')
-        table_file.write("Sample_ID,align_in_lane1,aligned_0_times_lane1,aligned_exactly_once_lane1,aligned_more_than_once_lane1,overall_alignment_rate_lane1,align_in_lane2,aligned_0_times_lane2,aligned_exactly_once_lane2,aligned_more_than_once_lane2,overall_alignment_rate_lane2\n")
+        table_file.write("Sample_ID,aligned_reads,aligned_0_times,aligned_exactly_once,aligned_more_than_once,overall_alignment_rate\n")
         
-        directory = "data/lane1/logs"
-        for sample_id in [x.split('/')[-1].split('_')[0] for x in os.listdir(directory) if x.endswith('align.log')]:
-            file_l1, file_l2 = f'data/lane1/logs/{sample_id}_align.log', f'data/lane2/logs/{sample_id}_align.log' 
-            file_l1, file_l2 = file_l1.replace(' ',''), file_l2.replace(' ','')
-            to_write = str(sample_id) + ','
-            for log_file in [file_l1, file_l2]:
-                log_file = open(log_file, 'r')
-                to_write += log_file.readline().split(' ')[0] + ','
-                log_file.readline()
-                to_write += log_file.readline().lstrip().split(' ')[0] + ','
-                to_write += log_file.readline().lstrip().split(' ')[0] + ','
-                to_write += log_file.readline().lstrip().split(' ')[0] + ','
-                to_write += str(float(log_file.readline().lstrip().split(' ')[0].rstrip('%'))/100) + ','
+        for file in [x for x in os.listdir('data/merged_reads/') if x.endswith('align.log')]:
+            sample_id = file.split('/')[-1].split('_')[0]
+            log_file = open(log_file, 'r')
+            to_write += log_file.readline().split(' ')[0] + ','
+            log_file.readline()
+            to_write += log_file.readline().lstrip().split(' ')[0] + ','
+            to_write += log_file.readline().lstrip().split(' ')[0] + ','
+            to_write += log_file.readline().lstrip().split(' ')[0] + ','
+            to_write += str(float(log_file.readline().lstrip().split(' ')[0].rstrip('%'))/100) + ','
             to_write = to_write.rstrip(',')
             to_write += '\n'
             table_file.write(to_write)
-                
-rule merge_sams:
-    # Reads were demultiplexed, trimmed, and aligned in their respective lanes (lane 1 and lane 2)
-    # in order to detect biases between lanes. This rule merges sam files from the same sample between lane 1 and lane 2
-    # into a single sam file.
-    input:
-        lane1_file = "data/lane1/sams/{sample}.sam",
-        lane2_file = "data/lane2/sams/{sample}.sam",
-    output:
-        temp("data/merged_bams/{sample}.sam")
-    conda:
-        "../envs/preprocessing.yml"
-    shell:
-        """
-        samtools merge -o {output} {input.lane1_file} {input.lane2_file}
-        """
         
+                
 rule convert_sams_to_bams:
     # Converts sam files to bam files so that they can be used as input for ANGSD
     input:
@@ -208,18 +208,3 @@ rule build_bam_index_files:
         samtools index {input}
         """
           
-rule make_list_of_bams:
-    # Makes a list of bam file paths that will be used as input for ANGSD (see rules/call_variants.smk for ANGSD)
-    input:
-        bam_index_files = expand("data/merged_bams/{sample}.bam.bai",sample=samples),
-        bam_files =expand("data/merged_bams/{sample}.bam", sample=samples)
-        
-    output:
-        "data/merged_bams/bams.txt"
-    conda:
-        "../envs/preprocessing.yml"
-    shell:
-        """
-        ls data/merged_bams/*.bam > data/merged_bams/bams.txt
-        """
-        

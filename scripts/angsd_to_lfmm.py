@@ -11,10 +11,6 @@ def parser_arguments():
         "-g", "--geno", help="path to input geno file from ANGSD", required=True
     )
     parser.add_argument(
-        "-m", "--meta", help="path meta data file", required=True
-    )
-  
-    parser.add_argument(
         "-o", "--output", help="path to write output file", required=True
     )
   
@@ -40,20 +36,6 @@ def geno_to_lfmm(args):
     df = df.drop([0, 1, len(df.columns)-1], axis=1).T
     df.index = range(len(df))
     
-    df_meta = pd.read_csv(args.meta)
-    df_meta = df_meta[df_meta.to_exclude == False]
-    df_meta = df_meta[["Sample_ID"]]
-    df = pd.merge(df, df_meta, left_index=True, right_index=True)
-    df.index = df.Sample_ID
-    df = df.drop(
-        [
-            "Sample_ID"
-            
-        ],
-        axis=1,
-    )
-
-
     major_alleles = []
     for column_name in df.columns:
         column = df[column_name].to_list()

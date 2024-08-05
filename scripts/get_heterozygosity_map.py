@@ -17,7 +17,9 @@ def parser_arguments():
     parser.add_argument(
         "-o", "--output", help="path to write output file", required=True
     )
-
+    parser.add_argument(
+        "-b", "--bam", help="path to the file containing list of bams used as ANGSD input", required=True
+    )
     args = par.parse_args()
 
     return args
@@ -36,14 +38,19 @@ def get_heterozygosity_map(args):
     df = pd.read_table(args.geno, header=None)
     df = df.drop([0, 1, len(df.columns)-1], axis=1).T
     df.index = range(len(df))
+    
     df_hetero = df.applymap(is_heterozygous)
-    df_hetero['Heterozygosity rate'] = df_hetero.mean(axis=1)
+    
+    df_hetero['Heterozygosity rate'] = df_hetero.mean(axis=1, skipna=True)
+    
+    bam = pd.read_table(args.bam, header=None)
+    bam.columns = ['Sample_ID']
+    bam['Sample_ID'] = bam['Sample_ID'].apply(lambda x: x.split('/')[-1].split('.')[0])
+    
+    df_hetero = pd.merge(df_hetero, bam, left_index=True, right_index=True)
 
     meta = pd.read_csv(args.meta)
-    meta = meta[meta.to_exclude == False] 
-
-
-    df_hetero = pd.merge(df_hetero, meta, left_index=True, right_index=True )
+    df_hetero = pd.merge(df_hetero, meta, left_on='Sample_ID', right_on='Sample_ID' )
 
 
     # Create a grid of points over the map area

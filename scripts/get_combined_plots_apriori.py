@@ -7,6 +7,7 @@ import argparse
 import matplotlib.gridspec as gridspec
 import geopandas as gpd
 import seaborn as sns
+from shapely.geometry import Point, Polygon
 
 def parser_arguments():
     par = argparse.ArgumentParser()
@@ -84,14 +85,25 @@ def get_pca_plot(ax, args):
     
     colors = ['gold', 'mediumturquoise', 'orangered', 'magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue', 'khaki', 'sienna']
+
+    markers = ['o','d','v','^','<','>','s','P','*','D', 'X', 'p']
+
     
-    scatter = sns.scatterplot(data=merged_df, x='PCA1', y='PCA2', hue='Cluster',
-                              style='Sampling Group', palette=colors[:k], ax=ax)
+    for i, pop in enumerate(merged_df["Sampling Group"].unique()):
+        data = merged_df.loc[merged_df["Sampling Group"] == pop]
+        ax.scatter(x='PCA1',y='PCA2', data=data, color = colors[i], label=pop, s=4)
+        plot_ellipse(ax, data[['PCA1', 'PCA2']].values, colors[i], pop)
     
-    for cluster_num in range(1,k+1):
-        cluster = merged_df.loc[q_matrix.Cluster == str(cluster_num)]
-        if len(cluster) > 3:
-            plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[cluster_num-1], '')
+    #scatter = sns.scatterplot(data=merged_df, x='PCA1', y='PCA2', hue='Cluster',
+    #                          style='Sampling Group', palette=colors[:k], ax=ax,
+    #                         markers=markers)
+    
+    
+    
+    #for cluster_num in range(1,k+1):
+    #    cluster = merged_df.loc[q_matrix.Cluster == str(cluster_num)]
+    #    if len(cluster) > 3:
+    #        plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[cluster_num-1], '')
     
     ax.set_xticks([])
     ax.set_yticks([])
@@ -105,34 +117,37 @@ def get_pca_plot(ax, args):
     ax.set_ylabel(f'Axis 2 ({round(reduction_obj.explained_variance_[1], 2)}%)', fontname='Arial', fontweight='bold', fontsize=10)
     
     # Remove the original legend
-    ax.get_legend().remove()
+    #ax.get_legend().remove()
     
     ax.set_xlim(-5,14)
     
+    legend = ax.legend(title='Cluster')
+    plt.setp(legend.get_title(), fontsize=12, fontweight='bold')
+    
     # Update legend
-    handles, labels = ax.get_legend_handles_labels()
+#     handles, labels = ax.get_legend_handles_labels()
     
-    # Separate handles and labels for clusters and sampling groups
-    cluster_handles = handles[1:k+1]
-    cluster_labels = labels[1:k+1]
-    sampling_group_handles = handles[k+2:]
-    sampling_group_labels = labels[k+2:]
+#     # Separate handles and labels for clusters and sampling groups
+#     cluster_handles = handles[1:k+1]
+#     cluster_labels = labels[1:k+1]
+#     sampling_group_handles = handles[k+2:]
+#     sampling_group_labels = labels[k+2:]
     
-    # Create custom legend with two columns
-    from matplotlib.legend import Legend
+#     # Create custom legend with two columns
+#     from matplotlib.legend import Legend
 
-    cluster_legend = Legend(ax, cluster_handles, cluster_labels, title='Cluster', loc='upper right', bbox_to_anchor=(0.6, 1), fontsize=10, frameon=False)
-    sampling_group_legend = Legend(ax, sampling_group_handles, sampling_group_labels, title='Sampling Group', loc='upper right', bbox_to_anchor=(1, 1), fontsize=10, frameon=False)
+#     cluster_legend = Legend(ax, cluster_handles, cluster_labels, title='Cluster', loc='upper right', bbox_to_anchor=(0.6, 1), fontsize=10, frameon=False)
+#     sampling_group_legend = Legend(ax, sampling_group_handles, sampling_group_labels, title='Sampling Group', loc='upper right', bbox_to_anchor=(1, 1), fontsize=10, frameon=False)
     
-    ax.add_artist(cluster_legend)
-    ax.add_artist(sampling_group_legend)
+#     ax.add_artist(cluster_legend)
+#     ax.add_artist(sampling_group_legend)
     
-    plt.setp(cluster_legend.get_title(), fontsize=12, fontweight='bold')
-    plt.setp(sampling_group_legend.get_title(), fontsize=12, fontweight='bold')
+#     plt.setp(cluster_legend.get_title(), fontsize=12, fontweight='bold')
+#     plt.setp(sampling_group_legend.get_title(), fontsize=12, fontweight='bold')
     
-    for legend in [cluster_legend, sampling_group_legend]:
-        legend.get_frame().set_facecolor('none')
-        legend.get_frame().set_edgecolor('none')
+#     for legend in [cluster_legend, sampling_group_legend]:
+#         legend.get_frame().set_facecolor('none')
+#         legend.get_frame().set_edgecolor('none')
         
     
 
@@ -205,6 +220,8 @@ def get_pie_map(ax, args):
     k = int(args.numpops)
     usa_shapefile = gpd.read_file(r'./data/shapefiles/s_08mr23.shp')
     subspecies_shapefile = gpd.read_file(r'./data/shapefiles/subspecies_22780.shp')
+    #apriori_pops = gpd.read_file(r'./data/shapefiles//XYRed2017POP.shp')
+    
 
     colors = ['gold', 'mediumturquoise', 'orangered','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
@@ -212,15 +229,26 @@ def get_pie_map(ax, args):
     meta = pd.read_csv(args.meta)
     meta = meta[meta.to_exclude == False] 
     meta.index = range(len(meta))
-    
+
     qmatrix = pd.read_csv(args.qmatrix, index_col=0)
+    qmatrix = qmatrix.apply(pd.to_numeric) #
+    qmatrix['max_prob'] = qmatrix.iloc[:, 1:].max(axis=1) #
     qmatrix = pd.merge(qmatrix, meta, left_index=True, right_index=True)
     
     usa_shapefile.plot(ax=ax, facecolor='White', edgecolor='gray', linewidth=0.5)
     subspecies_shapefile.plot(ax=ax, facecolor='White', edgecolor='black', linewidth=2, linestyle='--', alpha=0.5)
+    #apriori_pops.plot(ax=ax, facecolor='gray',edgecolor='black', linewidth=2, 
+    #                      linestyle = '--', alpha=0.1)
+    
+    # Plotting apriori pops
+    for population, group in qmatrix.groupby('POP'):
+        points = [Point(lon, lat) for lon, lat in zip(group['longitude'], group['latitude'])]
+        poly = gpd.GeoSeries(points).union_all().convex_hull
+        x, y = poly.exterior.xy
+        ax.fill(x, y, edgecolor='black', facecolor='gray', linewidth=1.5, alpha = 0.1)
     
     ax.set_ylim([30, 48.5])
-    ax.set_xlim([-98, -78])
+    ax.set_xlim([-98, -77.5])
 
     ax.set_xlabel('Longitude', fontweight='bold', fontsize=10)
     ax.set_ylabel('Latitude', fontweight='bold', fontsize=10)
@@ -229,10 +257,13 @@ def get_pie_map(ax, args):
     ax.text(-87.5, 32.5, 'U. c. floridanus', fontsize=10, fontstyle='italic')
     ax.text(-87.5, 35.0, 'U. c. cinereoargenteus', fontsize=10, fontstyle='italic')
 
+    
     for idx, row in qmatrix.iterrows():
-        proportions = row[1:k+1]
-        ax.pie(proportions, colors=colors, radius=0.25, 
-               center=(row['longitude'], row['latitude']), wedgeprops={'clip_on': True}, frame=True)
+        
+        if row['max_prob'] < 0.75: #
+            proportions = row[1:k+1]
+            ax.pie(proportions, colors=colors, radius=0.25, 
+                   center=(row['longitude'], row['latitude']), wedgeprops={'clip_on': True}, frame=True)
 
 def get_combined_plots(args):
     fig = plt.figure(figsize=(10, 10))

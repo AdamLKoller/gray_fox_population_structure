@@ -46,41 +46,40 @@ def get_delta_k_plot(args):
     
     print(df)
     
-    # Create a figure with two subplots side by side
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+    # Create a figure and a primary axis
+    fig, ax1 = plt.subplots(figsize=(10, 6))
 
-    # First plot
+    # Plot the first series
     ax1.errorbar(df['K'], df['Mean LnP(K)'], yerr=df['Stdev LnP(K)'], fmt='o',
                  color='blue', ecolor='lightgray', capsize=5, capthick=2)
     ax1.set_xlabel('K', fontname='Arial', fontweight='bold', fontstyle='italic', fontsize=16)
-    ax1.set_ylabel(r'$\mathbf{Mean\ } \mathit{\mathbf{L(K)}}$', fontname='Arial', fontsize=16)
+    ax1.set_ylabel(r'$\mathbf{Mean\ } \mathit{\mathbf{L(K)}}$', fontname='Arial', fontsize=16, color='blue')
     ax1.yaxis.set_major_formatter(FuncFormatter(comma_format))
     ax1.spines['top'].set_visible(False)
     ax1.spines['right'].set_visible(False)
     ax1.spines['bottom'].set_linewidth(2)
     ax1.spines['left'].set_linewidth(2)
     ax1.tick_params(axis='both', width=2)
-    ax1.text(0.05, 0.95, '(a)', transform=ax1.transAxes, fontsize=16, fontweight='bold')
+    #ax1.text(0.05, 0.95, '(a)', transform=ax1.transAxes, fontsize=16, fontweight='bold')
 
-    # Second plot
-    ax2.plot(df['K'], df['delta_k'], marker='o', color='blue', linestyle='-', linewidth=2)
-    ax2.set_xlabel('K', fontname='Arial', fontweight='bold', fontstyle='italic', fontsize=16)
-    ax2.set_ylabel(r'$\mathbf{\Delta\ K}$', fontname='Arial', fontsize=16, fontweight='bold')
+    # Create a secondary y-axis
+    ax2 = ax1.twinx()
+    ax2.plot(df['K'], df['delta_k'], marker='o', color='green', linestyle='-', linewidth=2)
+    ax2.set_ylabel(r'$\mathbf{\Delta\ K}$', fontname='Arial', fontsize=16, fontweight='bold', color='green')
     ax2.yaxis.set_major_formatter(FuncFormatter(comma_format))
     ax2.spines['top'].set_visible(False)
-    ax2.spines['right'].set_visible(False)
+    ax2.spines['right'].set_linewidth(2)
     ax2.spines['bottom'].set_linewidth(2)
-    ax2.spines['left'].set_linewidth(2)
+    ax2.spines['left'].set_visible(False)
     ax2.tick_params(axis='both', width=2)
     ax2.axhline(y=0, color='black', linestyle='--', linewidth=0.5)
-    ax2.text(0.05, 0.95, '(b)', transform=ax2.transAxes, fontsize=16, fontweight='bold')
-    #ax2.set_ylim(top=100000)
 
     # Adjust layout
     plt.tight_layout()
     
     # Save to PNG
     plt.savefig(args.output)
+
     
 
 def main():

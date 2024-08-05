@@ -6,6 +6,7 @@ import numpy as np
 import argparse
 import matplotlib.gridspec as gridspec
 import geopandas as gpd
+from shapely.geometry import Point, Polygon
 
 def parser_arguments():
     par = argparse.ArgumentParser()
@@ -25,7 +26,9 @@ def parser_arguments():
     parser.add_argument(
         "-m", "--meta", help="path to metadata file", required=True
     )
-    
+    parser.add_argument(
+        "-b", "--bam", help="path to the file containing list of bams used as ANGSD input", required=True
+    )
     args = par.parse_args()
 
     return args
@@ -75,11 +78,20 @@ def get_pca_plot(ax, args):
     
     colors = ['gold', 'mediumturquoise', 'orangered','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
+    
+    cluster_labels = ['NW','E','SW'] # Adjust this appropiate 
+    
     for i in range(1, k+1):
+        
+        if k ==3:
+            label = cluster_labels[i-1]
+        else:
+            label = str(i)
+            
         cluster = merged_df.loc[merged_df.cluster_assignment == f'prop_{i}']
         if len(cluster) > 3:
-            ax.scatter(x='PCA1', y='PCA2', color=colors[i-1], s=4, data=cluster, label=str(i))
-            plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[i-1], f'Cluster {i}')
+            ax.scatter(x='PCA1', y='PCA2', color=colors[i-1], s=4, data=cluster, label=label)
+            plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[i-1],label)
     
     ax.set_xticks([])
     ax.set_yticks([])
@@ -104,14 +116,53 @@ def get_structure_plot(ax, args):
     df = df.apply(pd.to_numeric)
     df['max_prob'] = df.iloc[:, 1:].max(axis=1)
     df['cluster_assignment'] = df.iloc[:, 1:-1].idxmax(axis=1)
-    df = df.sort_values(by=['cluster_assignment', 'max_prob'], ascending=[True, False])
+    
+    bam = pd.read_table(args.bam, header=None)
+    bam.columns = ['Sample_ID']
+    bam['Sample_ID'] = bam['Sample_ID'].apply(lambda x: x.split('/')[-1].split('.')[0])
+    
+    df = pd.merge(df, bam, left_index=True, right_index=True)
+    
+    meta = pd.read_csv(args.meta)
+    df = pd.merge(df, meta, left_on='Sample_ID', right_on='Sample_ID')
+    
+    df['POP'] = pd.Categorical(df['POP'], ['MN_WI_ND','IA_NE','MO','KS_OK','AR','LA','IL_IN','MS','KY_TN', 'OH_WV','SC_NC','MI'])
+    
+    df = df.sort_values(by=['POP','cluster_assignment', 'max_prob'], ascending=[True, True, False])
 
     # Plotting data
     colors = ['gold', 'mediumturquoise', 'orangered','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
     
-    df.iloc[:, 1:-2].plot(kind='bar', stacked=True, ax=ax, width=1.0, color=colors)
-    ax.set_xticks([])
+    df.plot(kind='bar', y=[x for x in df.columns if x.startswith('prop_') and x != 'prop_missing'], stacked=True, ax=ax, width=1.0, color=colors)
+    
+    # Getting x ticks
+    xticks = []
+    xticklabels = []
+    boundaries = []
+    current_pop = df['POP'].iloc[0]
+    last_pop_idx = 0
+
+    for idx, pop in enumerate(df['POP']):
+        if pop != current_pop:
+            xticks.append(last_pop_idx)
+            boundaries.append(last_pop_idx + (idx - last_pop_idx) // 2)
+            xticklabels.append(current_pop)
+            current_pop = pop
+            last_pop_idx = idx
+
+    # Add the last population
+    xticks.append(last_pop_idx)
+    boundaries.append(last_pop_idx + (len(df) - last_pop_idx) // 2)
+    xticklabels.append(current_pop)
+    
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([''] * len(xticks))  # Set empty labels for boundary ticks
+
+    # Set labels at the center of each population
+    for boundary, label in zip(boundaries, xticklabels):
+        ax.text(boundary, -0.01, label, ha='center', va='top', rotation=90, fontname='Arial', fontsize=10, transform=ax.get_xaxis_transform())
+
     ax.legend().set_visible(False)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -119,6 +170,7 @@ def get_structure_plot(ax, args):
     ax.spines['left'].set_visible(False)
     ax.set_ylabel("q", fontname='Arial', fontsize=10, fontweight='bold', fontstyle='italic')
     ax.tick_params(axis='both', width=2)
+
 
 def get_pie_map(ax, args):
     """
@@ -130,16 +182,27 @@ def get_pie_map(ax, args):
 
     colors = ['gold', 'mediumturquoise', 'orangered','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
+     
+    qmatrix = pd.read_csv(args.qmatrix, index_col=0)
+    
+    bam = pd.read_table(args.bam, header=None)
+    bam.columns = ['Sample_ID']
+    bam['Sample_ID'] = bam['Sample_ID'].apply(lambda x: x.split('/')[-1].split('.')[0])
+    
+    qmatrix = pd.merge(qmatrix, bam, left_index=True, right_index=True)
     
     meta = pd.read_csv(args.meta)
-    meta = meta[meta.to_exclude == False] 
-    meta.index = range(len(meta))
-    
-    qmatrix = pd.read_csv(args.qmatrix, index_col=0)
-    qmatrix = pd.merge(qmatrix, meta, left_index=True, right_index=True)
+    qmatrix = pd.merge(qmatrix, meta, left_on='Sample_ID', right_on='Sample_ID')
     
     usa_shapefile.plot(ax=ax, facecolor='White', edgecolor='gray', linewidth=0.5)
     subspecies_shapefile.plot(ax=ax, facecolor='White', edgecolor='black', linewidth=2, linestyle='--', alpha=0.5)
+    
+    # Plotting apriori pops
+    for population, group in qmatrix.groupby('POP'):
+        points = [Point(lon, lat) for lon, lat in zip(group['longitude'], group['latitude'])]
+        poly = gpd.GeoSeries(points).union_all().convex_hull
+        x, y = poly.exterior.xy
+        ax.fill(x, y, edgecolor='black', facecolor='gray', linewidth=1.5, alpha = 0.1)
     
     ax.set_ylim([30, 48.5])
     ax.set_xlim([-98, -78])

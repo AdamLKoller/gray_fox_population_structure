@@ -18,16 +18,37 @@ library(maptools)
 # Parse data
 parser <- ArgumentParser(description = 'This program calculates pairwise Fst with hierfstat')
 parser$add_argument('--input_lfmm', '-l', help = 'path to lfmm file')
+parser$add_argument('--bam', '-b', help = 'list of bams used as ANGSD input')
 parser$add_argument('--meta', '-m', help = 'path to meta file')
 parser$add_argument('--output', '-o', help = 'basename for output')
 
 xargs = parser$parse_args()
 
+
+bam <- read.table(xargs$bam, header = FALSE, stringsAsFactors = FALSE)
+colnames(bam) <- c("Sample_ID")
+
+# Process the Sample_ID column to extract the desired part
+bam$Sample_ID <- sapply(bam$Sample_ID, function(x) {
+  strsplit(basename(x), "\\.")[[1]][1]
+})
+
+
+
+
+print(dim(bam))
+
 meta = read.csv(xargs$meta)
-coordinates = data.matrix(meta %>% filter(to_exclude == "False") %>% dplyr::select(c('longitude','latitude')))
+meta = meta %>% semi_join(bam, by='Sample_ID')
+
+coordinates = data.matrix(meta %>% dplyr::select(c('longitude','latitude')))
+
+print(dim(coordinates))
 
 lfmm = read.table(xargs$input_lfmm, sep=" ")
 lfmm[lfmm == 9] = NA
+
+print(dim(lfmm))
 
 tess3.obj = tess3(X = lfmm, coord = coordinates, K = 1:10,
                  method = "projected.ls", ploidy = 2, rep=10, keep='best')

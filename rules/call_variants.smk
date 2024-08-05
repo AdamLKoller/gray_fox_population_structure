@@ -1,4 +1,4 @@
-rule call_genotypes:
+rule call_genotypes_1:
     # Calls genotypes using ANGSD
     input:
         bam_index_files = expand("data/merged_bams/{sample}.bam.bai",sample=samples),
@@ -23,10 +23,11 @@ rule call_genotypes:
         
     shell:
         """
-        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -sb_pval 1e-5 -hetbias_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd {params.minInd} -setMinDepthInd 5 -setMaxDepthInd 1000 -minMaf 0.03 -doCounts 1 -doDepth 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno -nThreads 35
+        echo "angsd:     $(angsd --version)" >> versions.txt
+        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -sb_pval 1e-5 -hetbias_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd {params.minInd} -setMinDepthInd 5 -setMaxDepthInd 1000 -minMaf 0.01 -doCounts 1 -doDepth 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno -nThreads 35
         """
     
-rule unzip_geno:
+rule unzip_geno_1:
     # Unzip .geno.gz output from ANGSD (hard-call genotypes)
     input:
         "data/genotypes/geno.geno.gz"
@@ -35,7 +36,7 @@ rule unzip_geno:
     shell:
         "gzip -d -k {input}"   
     
-rule get_missing_loci_column:
+rule get_missing_loci_column_1:
     input:
         geno = "data/genotypes/geno.geno",
         meta = "config/meta.csv"
@@ -46,25 +47,26 @@ rule get_missing_loci_column:
         python scripts/get_missing_loci_data.py -g {input.geno} -m {input.meta} -c missing_loci_1 -o {output}
         """
     
-rule get_bams_wo_replicates:
+rule get_bams_wo_replicates_1:
     # Filter out low quality replicates and samples with > 50% missing genotypes
     input:
         geno = "data/genotypes/geno.geno",
         meta = "config/meta.csv"
     output:
-        "data/merged_bams/bams_filtered.txt"
+        "data/merged_bams/bams_filtered_1.txt"
     shell:
         """
         python scripts/get_bams_wo_reps.py -g {input.geno} -m {input.meta} -o {output}
         """
         
+        
 
-rule call_genotypes_again:
+rule call_genotypes_2:
     # Calls genotypes after the removal of lower quality replicates
     input:
         bam_index_files = expand("data/merged_bams/{sample}.bam.bai",sample=samples),
         bam_files =expand("data/merged_bams/{sample}.bam", sample=samples),
-        list_of_bams = "data/merged_bams/bams_filtered.txt"
+        list_of_bams = "data/merged_bams/bams_filtered_1.txt"
         
     output:
         "data/genotypes/geno2.arg",
@@ -83,13 +85,13 @@ rule call_genotypes_again:
     shell:
         """
         MININD=(`wc -l {input.list_of_bams}`)
-        MININD=$((MININD/2))
+        MININD=$((MININD*0.8))
 
         
-        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -sb_pval 1e-5 -hetbias_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -setMaxDepthInd 1000 -minMaf 0.03 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno2 -nThreads 35
+        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -sb_pval 1e-5 -hetbias_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -setMaxDepthInd 1000 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno2 -nThreads 35
         """
         
-rule unzip_geno_again:
+rule unzip_geno_2:
     # Unzip .geno2.gz output from ANGSD (hard-call genotypes)
     input:
         "data/genotypes/geno2.geno.gz"
@@ -98,7 +100,16 @@ rule unzip_geno_again:
     shell:
         "gzip -d -k {input}"   
     
-rule get_missing_loci_column_again:
+###
+# REMOVE INDIVIDUALS WITH > 25% data
+###
+
+###
+# CALL GENOTYPES AGAIN
+###
+    
+    
+rule get_missing_loci_column_again: # may be redundant
     input:
         geno = "data/genotypes/geno2.geno",
         meta = "config/meta_subset.csv"
@@ -135,6 +146,7 @@ rule run_NGS_relate:
         "../envs/call_variants.yml"
     shell: 
         """
+        echo "ngsRelate:     $(ngsRelate --version)" >> versions.txt
         N=(`wc -l < {input.bamlist}`)
         ngsRelate  -g {input.glf} -f {input.freq}  -O {output} -r 0 -p 30 -c -e -n $N -z {input.bamlist}
         """

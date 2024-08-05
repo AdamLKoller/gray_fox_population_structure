@@ -48,7 +48,7 @@ def add_apriori_pops(args):
                                      & (meta_with_pop.longitude == -90.084763), 'POP'] = 'MN_WI_ND'
 
     meta_with_pop.loc[(meta_with_pop.latitude == 36.291422)
-                                     & (meta_with_pop.longitude == -91.855491), 'POP'] = 'MI'
+                                     & (meta_with_pop.longitude == -91.855491), 'POP'] = 'MO'
 
     meta_with_pop.to_csv(args.output)
     
