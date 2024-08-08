@@ -277,20 +277,19 @@ rule get_heterozygosity_map:
         python scripts/get_heterozygosity_map.py -g {input.geno} -m {input.meta} -o {output} -b {input.bam_list}
         """
         
-#rule prepare_fst_input:
-#    # Calls the script `prepare_fst_input.py` to prepare input for the R package hierfstat (used to calculate #pairwise Fst)
-#    input:
-#        geno = "data/genotypes/geno5.geno",
-#        q_matrix = "data/structure/q_matrix_{k}",
-#        meta = "config/meta_subset.csv"
-#    output:
-#        "data/genotypes/fst_input_{k}"
-#    conda:
-#        "../envs/analyses.yml"
-#    shell:
-#        """
-#        python scripts/prepare_fst_input.py --g {input.geno} -q {input.q_matrix} -m {input.meta} -o {output}
-#        """
+rule prepare_fst_input:
+    # Calls the script `prepare_fst_input.py` to prepare input for the R package hierfstat (used to calculate #pairwise Fst)
+    input:
+        geno = "data/genotypes/geno5.geno",
+        q_matrix = "data/structure/q_matrix_{k}"
+    output:
+        "data/genotypes/fst_input_{k}"
+    conda:
+        "../envs/analyses.yml"
+    shell:
+        """
+        python scripts/prepare_fst_input.py --g {input.geno} -q {input.q_matrix} -o {output}
+        """
         
 #rule get_pairwise_fst:
 #    # Calls the script `get_pairwise_fst.R` to generate pairwise_fst table (calculated according to Nei 1973)
@@ -373,16 +372,28 @@ rule run_tess3r:
         Rscript scripts/run_tess3r.R -l {input.lfmm} -m {input.meta} -o figures/tess3 -b {input.bam_list}
         """
 
-#rule get_allele_stats:
-#    # Calls the script `get_pairwise_fst.R` to generate pairwise_fst table (calculated according to Nei 1973)
-#    input:
-#        "data/genotypes/fst_input_{k}"
-#    output:
-#        "tables/allele_stats_{k}.tab"
-#    conda:
-#        '../envs/fstats.yml'
-#    shell:
-#        """
-#        Rscript scripts/get_pop_allele_stats.R -i {input} -o {output}
-#        """
+rule get_allele_stats:
+    # 
+    input:
+        "data/genotypes/fst_input_{k}"
+    output:
+        "tables/allele_stats_{k}.tab"
+    conda:
+        '../envs/fstats.yml'
+    shell:
+        """
+        Rscript scripts/get_pop_allele_stats.R -i {input} -o {output}
+        """
         
+rule get_allele_stats_apriori:
+    # 
+    input:
+        "data/genotypes/fst_input_apriori"
+    output:
+        "tables/allele_stats_apriori.tab"
+    conda:
+        '../envs/fstats.yml'
+    shell:
+        """
+        Rscript scripts/get_pop_allele_stats.R -i {input} -o {output}
+        """

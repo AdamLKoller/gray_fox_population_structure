@@ -44,6 +44,36 @@ rule demultiplex:
         trim2bRAD_2barcodes_dedup.pl input={input} site=".{{12}}CGA.{{6}}TGC.{{12}}|.{{12}}GCA.{{6}}TCG.{{12}}" adaptor="AGATC?" sampleID=100 deduplicate=1 bc=[ATGC]{{4}} &> {output}
         """
 
+rule count_raw_reads:
+    # Returns the number of reads for each sample prior to removing PCR duplicates by parsing the demulti_log files
+    input:
+        expand("data/merged_reads/library_{library}_demulti_log.txt", library = range(1,39))
+    output:
+        "tables/raw_reads.csv"
+    run:
+        raw_df = pd.DataFrame(columns=['Sample_ID','raw_reads'])
+        directory = 'data/merged_reads/'
+        for file_path in os.listdir(directory):
+            if file_path.endswith('demulti_log.txt'):
+                with open(directory +  file_path, 'r') as file:
+                    line = file.readline()
+                    while line != '\n':
+                        path, _, goods, dups = line.split(':')
+                        library, barcode = int(path.split('_')[-2]), path.split('_')[-1]
+                        Sample_ID = meta.loc[(meta.library == library) & (meta.barcode == barcode)].Sample_ID.values
+                        if len(Sample_ID) != 0:
+                            Sample_ID = Sample_ID[0]
+                            goods = int(goods.lstrip(' ').split(';')[0].rstrip(' '))
+                            dups = int(dups.lstrip(' '))
+                            total_count = goods + dups
+
+                            raw_df.loc[len(raw_df)] = [Sample_ID, total_count]
+
+                        line = file.readline()
+        raw_df.to_csv("tables/raw_reads.csv", index = False)
+                
+        
+        
         
 def get_sample_name(library,barcode):
     """
@@ -144,7 +174,7 @@ rule align_reads_to_ref:
         read_file = "data/merged_reads/{sample}.trim",
     output:
         sam = temp("data/merged_bams/{sample}.sam"),
-        log = temp("data/merged_bams/{sample}_align.log")
+        log = "data/merged_bams/{sample}_align_log.txt"
     conda:
         "../envs/align_reads_to_ref.yml"
     params:
@@ -158,7 +188,7 @@ rule align_reads_to_ref:
 rule get_alignment_rate_data:
     # Gathers alignment rate statistics for each sample in stores in tables/aligned_reads.csv
     input:
-        expand("data/merged_bams/{sample}_align.log", sample=samples)
+        expand("data/merged_bams/{sample}_align_log.txt", sample=samples)
     output:
         "tables/aligned_reads.csv",
         
@@ -168,9 +198,11 @@ rule get_alignment_rate_data:
         table_file = open("tables/aligned_reads.csv", 'w')
         table_file.write("Sample_ID,aligned_reads,aligned_0_times,aligned_exactly_once,aligned_more_than_once,overall_alignment_rate\n")
         
-        for file in [x for x in os.listdir('data/merged_reads/') if x.endswith('align.log')]:
-            sample_id = file.split('/')[-1].split('_')[0]
-            log_file = open(log_file, 'r')
+        
+        for file_path in [x for x in os.listdir('data/merged_bams/') if x.endswith('_align_log.txt')]:
+            sample_id = file_path.split('/')[-1].split('_')[0]
+            to_write = sample_id + ','
+            log_file = open('data/merged_bams/'+file_path, 'r')
             to_write += log_file.readline().split(' ')[0] + ','
             log_file.readline()
             to_write += log_file.readline().lstrip().split(' ')[0] + ','

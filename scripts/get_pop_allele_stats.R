@@ -19,7 +19,6 @@ xargs = parser$parse_args()
 geno = read.csv(xargs$input, row.names=1, header=TRUE)
 
 
-
 # Calculate basic statistics
 basic_stats <- basic.stats(geno, diploid = TRUE)
 
@@ -52,13 +51,16 @@ find_private_allele <- function(table) {
 }
 
 
+paste(colnames(allelic_richness_result$Ar))
 #print(basic_stats$pop.freq)
 
 private_alleles = lapply(basic_stats$pop.freq, find_private_allele)
 private_alleles = as.data.frame(do.call(rbind, private_alleles))
 
+
 # Create a summary table
 summary_table <- data.frame(
+  Population = colnames(basic_stats$n.ind.samp),
   Allelic_Richness = colMeans(allelic_richness_result$Ar),
   Observed_Heterozygosity = colMeans(basic_stats$Ho),
   Expected_Heterozygosity = colMeans(basic_stats$Hs),
@@ -68,7 +70,8 @@ summary_table <- data.frame(
 )
 
 # Print the summary table
-print(summary_table)
+paste(allelic_richness_result$min.all, "was the mimimum number of alleles used for rarefaction")
+paste("Writing summary table to", xargs$output )
 write.table(summary_table,file=xargs$output, sep = "\t", row.names = FALSE, col.names = TRUE )
 
 

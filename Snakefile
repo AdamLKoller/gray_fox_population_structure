@@ -14,13 +14,16 @@ rule all:
         "figures/heterozygosity_map.png",
         "tables/deduped_reads.csv",
         "tables/trimmed_reads.csv",
+        "tables/aligned_reads.csv",
         #expand("tables/pairwise_fst_{k}", k = range(2,11)),
         "figures/snp_significance.png",
-        #expand("tables/allele_stats_{k}.tab", k = range(2,5)),
+        expand("tables/allele_stats_{k}.tab", k = range(2,5)),
         "figures/tess3_cross_validation_plot.png",
         "tables/pairwise_fst_apriori",
         "tables/aligned_reads.csv",
-        "data/genotypes/geno5.counts"
+        "tables/allele_stats_apriori.tab",
+        "data/genotypes/geno5.counts",
+        "tables/raw_reads.csv"
         
         
 
