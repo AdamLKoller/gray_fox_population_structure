@@ -1,3 +1,5 @@
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
 # Install necessary packages if not already installed
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 if (!requireNamespace("tess3r", quietly = TRUE)) devtools::install_github("bcm-uga/TESS3_encho_sen")
@@ -14,6 +16,7 @@ library(mapdata)
 library(raster)
 library(fields)
 library(maptools)
+
 
 # Parse data
 parser <- ArgumentParser(description = 'This program calculates pairwise Fst with hierfstat')
@@ -53,7 +56,7 @@ print(dim(lfmm))
 tess3.obj = tess3(X = lfmm, coord = coordinates, K = 1:10,
                  method = "projected.ls", ploidy = 2, rep=10, keep='best')
 
-my.colors <- c('orangered', 'mediumturquoise', 'gold', 'magenta', 'orange', 'red', 'aquamarine1', 'hotpink', 'limegreen', 'blue')
+my.colors <- c('mediumturquoise', 'orangered', 'gold', 'magenta', 'orange', 'red', 'aquamarine1', 'hotpink', 'limegreen', 'blue')
 
 
 par(mfrow = c(1, 1))
@@ -65,34 +68,40 @@ dev.off()
 
 
 
-for (k in 1:10){
+for (k in 2:5){
 my.palette <- CreatePalette(my.colors[0:k], palette.length=10)
 q.matrix <- qmatrix(tess3.obj, K = k)
 
 us_map <- st_as_sf(map("state", plot = FALSE, fill = TRUE))
 
+# Convert to sf object
 coordinates_sf <- st_as_sf(as.data.frame(coordinates), coords = c("longitude", "latitude"), crs = 4326)
+
+# Calculate the bounding box
+bbox_coords <- st_bbox(coordinates_sf)
+lat_limits <- c(bbox_coords["ymin"], bbox_coords["ymax"])
+lon_limits <- c(bbox_coords["xmin"], bbox_coords["xmax"])
+
+us_map <- st_as_sf(map("state", plot = FALSE, fill = TRUE))
 us_map <- st_transform(us_map, st_crs(coordinates_sf))
 
-lat_limits <- c(30, 48.5)
-lon_limits <- c(-98, -78)
-
 spatial_plot <- ggtess3Q(q.matrix, coordinates, col.palette = my.palette) +
-  geom_sf(data = us_map, fill = NA, color = "black") +   
-  xlim(lon_limits) + 
-  ylim(lat_limits) + 
+  geom_sf(data = us_map, fill = NA, color = "black") +  
   coord_sf() + 
   geom_sf(data = coordinates_sf, size = 0.2) + 
+  xlim(lon_limits) + 
+  ylim(lat_limits) + 
   labs(x = "Longitude", y = "Latitude") + 
   theme_bw() +
-  theme(axis.title.x = element_text(face = "bold", size = 5, family="Arial"),
-        axis.title.y = element_text(face = "bold", size = 5, family="Arial"),
-        axis.text.x = element_text(size = 4, family = "Arial", color = 'black'),
-        axis.text.y = element_text(size = 4, family = "Arial", color='black'),
-       panel.grid.major = element_blank(),
+  theme(axis.title.x = element_text(face = "bold", size = 12),
+        axis.title.y = element_text(face = "bold", size = 12),
+        axis.text.x = element_text(size = 10, color = 'black'),
+        axis.text.y = element_text(size = 10, color='black'),
+        panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
-ggsave(paste0(xargs$output, '_barplot_map_', k,'.png'), plot = spatial_plot, width = 3, height = 3, dpi = 300)
+ggsave(paste0(xargs$output, "_q_map_", k, ".pdf"),
+       plot = spatial_plot, device = "pdf", useDingbats = FALSE)
+# ggsave(paste0(xargs$output, '_q_map_', k, '.pdf'), plot = spatial_plot, width = 4, height = 4, dpi = 300,useDingbats = FALSE)
 
 }
-

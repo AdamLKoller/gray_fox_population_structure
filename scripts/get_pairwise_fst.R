@@ -28,6 +28,8 @@ geno = read.csv(xargs$input, row.names=1, header=TRUE)
 fst_table_nei = pairwise.neifst(geno)
 write.table(fst_table_nei,file=paste(xargs$output,sep=''), sep = ',')
 
+fst_CI = boot.ppfst(geno, nboot = 10000)
+print(fst_CI)
 # Actual calculation (Weir and Cockerham)
 #fst_table_WC = pairwise.WCfst(geno)
 #write.table(fst_table_WC,file=paste(xargs$output,'_wc',sep=''), sep = ',')

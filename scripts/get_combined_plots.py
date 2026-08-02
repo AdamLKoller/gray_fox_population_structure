@@ -7,6 +7,21 @@ import argparse
 import matplotlib.gridspec as gridspec
 import geopandas as gpd
 from shapely.geometry import Point, Polygon
+from matplotlib import font_manager
+
+# Specify the path to your Arial.ttf file
+font_path = 'data/fonts/Arial.ttf'
+
+# Add the font to Matplotlib
+font_manager.fontManager.addfont('data/fonts/Arial.ttf')
+font_manager.fontManager.addfont('data/fonts/Arial_Bold.ttf')
+font_manager.fontManager.addfont('data/fonts/Arial_Bold_Italic.ttf')
+                                 
+
+# Set the font family globally
+plt.rcParams['font.family'] = 'Arial'
+
+
 
 def parser_arguments():
     par = argparse.ArgumentParser()
@@ -76,7 +91,7 @@ def get_pca_plot(ax, args):
     
     k = int(args.numpops)
     
-    colors = ['gold', 'mediumturquoise', 'orangered','magenta',
+    colors = ['orangered', 'mediumturquoise', 'black', 'gold','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
     
     cluster_labels = ['NW','E','SW'] # Adjust this appropiate 
@@ -85,13 +100,19 @@ def get_pca_plot(ax, args):
         
         if k ==3:
             label = cluster_labels[i-1]
+        elif k==2:
+            cluster_labels = ['NW','SW & E']
+            label = cluster_labels[i-1]
         else:
             label = str(i)
             
         cluster = merged_df.loc[merged_df.cluster_assignment == f'prop_{i}']
+        n = len(cluster)
         if len(cluster) > 3:
-            ax.scatter(x='PCA1', y='PCA2', color=colors[i-1], s=4, data=cluster, label=label)
-            plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[i-1],label)
+            label_with_n = f"{label} (n={n})"
+            ax.scatter(x='PCA1', y='PCA2', color=colors[i-1], s=4, data=cluster, label=label_with_n)
+            plot_ellipse(ax, cluster[['PCA1', 'PCA2']].values, colors[i-1], label_with_n)
+
     
     ax.set_xticks([])
     ax.set_yticks([])
@@ -101,11 +122,12 @@ def get_pca_plot(ax, args):
     print(f"Axes 1 explains {reduction_obj.explained_variance_[0]}% of the variance")
     print(f"Axes 2 explains {reduction_obj.explained_variance_[1]}% of the variance")
     
-    ax.set_xlabel(f'Axis 1 ({round(reduction_obj.explained_variance_[0],2)}%)', fontname='Arial', fontweight='bold', fontsize=10)
-    ax.set_ylabel(f'Axis 2 ({round(reduction_obj.explained_variance_[1],2)}%)', fontname='Arial', fontweight='bold', fontsize=10)
+    ax.set_xlabel(f'Axis 1 ({round(reduction_obj.explained_variance_[0],2)}%)', fontname='Arial', fontweight='bold', fontsize=12)
+    ax.set_ylabel(f'Axis 2 ({round(reduction_obj.explained_variance_[1],2)}%)', fontname='Arial', fontweight='bold', fontsize=12)
     
     legend = ax.legend(title='Cluster')
     plt.setp(legend.get_title(), fontsize=12, fontweight='bold')
+    legend.set_frame_on(False)
 
 def get_structure_plot(ax, args):
     """
@@ -116,27 +138,28 @@ def get_structure_plot(ax, args):
     df = df.apply(pd.to_numeric)
     df['max_prob'] = df.iloc[:, 1:].max(axis=1)
     df['cluster_assignment'] = df.iloc[:, 1:-1].idxmax(axis=1)
-    
+
     bam = pd.read_table(args.bam, header=None)
     bam.columns = ['Sample_ID']
     bam['Sample_ID'] = bam['Sample_ID'].apply(lambda x: x.split('/')[-1].split('.')[0])
-    
+
     df = pd.merge(df, bam, left_index=True, right_index=True)
-    
+
     meta = pd.read_csv(args.meta)
     df = pd.merge(df, meta, left_on='Sample_ID', right_on='Sample_ID')
-    
-    df['POP'] = pd.Categorical(df['POP'], ['MN_WI_ND','IA_NE','MO','KS_OK','AR','LA','IL_IN','MS','KY_TN', 'OH_WV','SC_NC','MI'])
-    
-    df = df.sort_values(by=['POP','cluster_assignment', 'max_prob'], ascending=[True, True, False])
 
-    # Plotting data
-    colors = ['gold', 'mediumturquoise', 'orangered','magenta',
+    # sort for plotting
+    df = df.sort_values(by=['POP','cluster_assignment','max_prob'], ascending=[True,True,False])
+    
+    # --- compute true population sizes before inserting dummy rows
+    pop_sizes = df['POP'].value_counts().to_dict()
+
+    colors = ['orangered', 'mediumturquoise', 'black', 'gold','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
-    
-    df.plot(kind='bar', y=[x for x in df.columns if x.startswith('prop_') and x != 'prop_missing'], stacked=True, ax=ax, width=1.0, color=colors)
-    
-    # Getting x ticks
+
+    df['prop_boundary'] = 0
+    df.index = range(len(df))
+
     xticks = []
     xticklabels = []
     boundaries = []
@@ -145,30 +168,40 @@ def get_structure_plot(ax, args):
 
     for idx, pop in enumerate(df['POP']):
         if pop != current_pop:
-            xticks.append(last_pop_idx)
-            boundaries.append(last_pop_idx + (idx - last_pop_idx) // 2)
+            xticks.append(idx)
+            boundaries.append(last_pop_idx + 1)
             xticklabels.append(current_pop)
+
             current_pop = pop
-            last_pop_idx = idx
+            last_pop_idx = idx + 1
 
-    # Add the last population
-    xticks.append(last_pop_idx)
-    boundaries.append(last_pop_idx + (len(df) - last_pop_idx) // 2)
+    # plot bars
+    df.plot(kind='bar',
+            y=[x for x in df.columns if x.startswith('prop_') and x != 'prop_missing'],
+            stacked=True, ax=ax, width=1.0, color=colors)
+
+    # add last population
     xticklabels.append(current_pop)
-    
-    ax.set_xticks(xticks)
-    ax.set_xticklabels([''] * len(xticks))  # Set empty labels for boundary ticks
 
-    # Set labels at the center of each population
+    ax.set_xticks(xticks)
+    ax.tick_params(axis='x',          # Apply to x-axis
+               which='major',     # Apply to major ticks (can also be 'minor' or 'both')
+               width=1,           # Set the tick line width
+               length=5)  
+    ax.set_xticklabels([''] * len(xticks))
+
+    # --- now add population labels with true n
     for boundary, label in zip(boundaries, xticklabels):
-        ax.text(boundary, -0.01, label, ha='center', va='top', rotation=90, fontname='Arial', fontsize=10, transform=ax.get_xaxis_transform())
+        n = pop_sizes[label]
+        ax.text(boundary, -0.012, f"{label} (n={n})", ha='center', va='top', rotation=270,
+                fontname='Arial', fontsize=10, transform=ax.get_xaxis_transform())
 
     ax.legend().set_visible(False)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.spines['left'].set_visible(False)
-    ax.set_ylabel("q", fontname='Arial', fontsize=10, fontweight='bold', fontstyle='italic')
+    ax.set_ylabel("q", fontname='Arial', fontsize=12, fontweight='bold', fontstyle='italic')
     ax.tick_params(axis='both', width=2)
 
 
@@ -180,7 +213,7 @@ def get_pie_map(ax, args):
     usa_shapefile = gpd.read_file(r'./data/shapefiles/s_08mr23.shp')
     subspecies_shapefile = gpd.read_file(r'./data/shapefiles/subspecies_22780.shp')
 
-    colors = ['gold', 'mediumturquoise', 'orangered','magenta',
+    colors = ['orangered', 'mediumturquoise', 'black', 'gold','magenta',
               'orange', 'red', 'aqua', 'hotpink', 'lime', 'blue']
      
     qmatrix = pd.read_csv(args.qmatrix, index_col=0)
@@ -207,8 +240,8 @@ def get_pie_map(ax, args):
     ax.set_ylim([30, 48.5])
     ax.set_xlim([-98, -78])
 
-    ax.set_xlabel('Longitude', fontweight='bold', fontsize=10)
-    ax.set_ylabel('Latitude', fontweight='bold', fontsize=10)
+    ax.set_xlabel('Longitude', fontweight='bold', fontsize=12)
+    ax.set_ylabel('Latitude', fontweight='bold', fontsize=12)
 
     ax.text(-97.5, 40, 'U. c. ocythous', fontsize=10, fontstyle='italic')
     ax.text(-87.5, 32.5, 'U. c. floridanus', fontsize=10, fontstyle='italic')
@@ -235,7 +268,7 @@ def get_combined_plots(args):
                      
     plt.tight_layout()
                      
-    plt.savefig(args.output)
+    plt.savefig(args.output, dpi=300)
     plt.show()
 
 def main():

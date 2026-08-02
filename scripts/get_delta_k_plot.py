@@ -3,6 +3,24 @@ import argparse
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 import matplotlib
+from matplotlib import font_manager
+
+# Specify the path to your Arial.ttf file
+font_path = 'data/fonts/Arial.ttf'
+
+# Add the font to Matplotlib
+font_manager.fontManager.addfont('data/fonts/Arial.ttf')
+font_manager.fontManager.addfont('data/fonts/Arial_Bold.ttf')
+font_manager.fontManager.addfont('data/fonts/Arial_Bold_Italic.ttf')
+                                 
+# -----------------------------
+# Global style
+# -----------------------------
+plt.rcParams['font.size'] = 12
+plt.rcParams['font.family'] = 'Arial'
+plt.rcParams['axes.linewidth'] = 1.5
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
 
 def parser_arguments():
     par = argparse.ArgumentParser()
@@ -147,7 +165,8 @@ def get_delta_k_plot(args):
 
     # Create a secondary y-axis
     ax2 = ax1.twinx()
-    ax2.plot(df['K'], df['delta_k'], marker='o', markerfacecolor='none', color='gray', linestyle='-', linewidth=2, label=r'$\mathbf{\Delta\ K}$')
+    deltaKDfNoNA = df.dropna(subset=['delta_k'])
+    ax2.plot(deltaKDfNoNA['K'], deltaKDfNoNA['delta_k'], marker='o', markerfacecolor='none', color='gray', linestyle='-', linewidth=2, label=r'$\mathbf{\Delta\ K}$')
     #ax2.set_ylabel(r'$\mathbf{\Delta\ K}$', fontname='Arial', fontsize=16, fontweight='bold')
     ax2.yaxis.set_major_formatter(FuncFormatter(comma_format))
     ax2.spines['top'].set_visible(False)
@@ -162,6 +181,9 @@ def get_delta_k_plot(args):
     
     # Save to PNG
     plt.savefig(args.output)
+
+    # Save to PDF
+    plt.savefig(args.output.replace('.png', '.pdf'), bbox_inches='tight')
 
     
 

@@ -42,6 +42,7 @@ rule call_genotypes_1:
         "data/genotypes/geno1.geno.gz",
         "data/genotypes/geno1.depthSample",
         "data/genotypes/geno1.depthGlobal",
+        "data/genotypes/geno1.log"
         
     conda:
         "../envs/call_variants.yml"
@@ -53,7 +54,7 @@ rule call_genotypes_1:
         MININD=(`wc -l {input.list_of_bams}`)
         MININD=$(echo "$MININD * 0.5" | bc)
 
-        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno1 -nThreads 35
+        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno1 -nThreads 35 &> data/genotypes/geno1.log
         """
         
 rule unzip_geno_1:
@@ -101,6 +102,7 @@ rule call_genotypes_2:
         "data/genotypes/geno2.geno.gz",
         "data/genotypes/geno2.depthSample",
         "data/genotypes/geno2.depthGlobal",
+        "data/genotypes/geno2.log"
         
     conda:
         "../envs/call_variants.yml"
@@ -112,7 +114,7 @@ rule call_genotypes_2:
         MININD=(`wc -l {input.list_of_bams}`)
         MININD=$(echo "$MININD * 0.6" | bc)
 
-        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno2 -nThreads 35
+        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno2 -nThreads 35 &> data/genotypes/geno2.log
         """
         
 rule unzip_geno_2:
@@ -159,6 +161,7 @@ rule call_genotypes_3:
         "data/genotypes/geno3.geno.gz",
         "data/genotypes/geno3.depthSample",
         "data/genotypes/geno3.depthGlobal",
+        "data/genotypes/geno3.log"
         
     conda:
         "../envs/call_variants.yml"
@@ -170,7 +173,7 @@ rule call_genotypes_3:
         MININD=(`wc -l {input.list_of_bams}`)
         MININD=$(echo "$MININD * 0.7" | bc)
 
-        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno3 -nThreads 35
+        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno3 -nThreads 35 &> data/genotypes/geno3.log
         """
         
 rule unzip_geno_3:
@@ -214,6 +217,7 @@ rule call_genotypes_4:
         "data/genotypes/geno4.geno.gz",
         "data/genotypes/geno4.depthSample",
         "data/genotypes/geno4.depthGlobal",
+        "data/genotypes/geno4.log"
         
     conda:
         "../envs/call_variants.yml"
@@ -225,7 +229,7 @@ rule call_genotypes_4:
         MININD=(`wc -l {input.list_of_bams}`)
         MININD=$(echo "$MININD * 0.7" | bc)
 
-        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno4 -nThreads 35
+        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno4 -nThreads 35 &> data/genotypes/geno4.log
         """
         
 rule unzip_geno_4:
@@ -333,6 +337,7 @@ rule call_genotypes_5:
         "data/genotypes/geno5.geno.gz",
         "data/genotypes/geno5.depthSample",
         "data/genotypes/geno5.depthGlobal",
+        "data/genotypes/geno5.log"
         
     conda:
         "../envs/call_variants.yml"
@@ -342,7 +347,7 @@ rule call_genotypes_5:
         MININD=(`wc -l {input.list_of_bams}`)
         MININD=$(echo "$MININD * 0.8" | bc)
 
-        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -sb_pval 1e-5 -hetbias_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno5 -nThreads 35
+        angsd -b {input.list_of_bams} -gl 1 -domajorminor 1 -dosnpstat 1 -doHWE 1 -snp_pval 1e-5 -sb_pval 1e-5 -hetbias_pval 1e-5 -domaf 1 -doGlf 3 -uniqueOnly 1 -remove_bads 1 -minMapQ 20 -minQ 25 -minInd $MININD -setMinDepthInd 5 -minMaf 0.01 -doCounts 1 -doDepth 1 -doBcf 1 -dumpCounts 2 -doPost 1 -doGeno 4 -skipTriallelic 1 -out data/genotypes/geno5 -nThreads 35 &> data/genotypes/geno5.log
         """
         
 rule unzip_geno_5:

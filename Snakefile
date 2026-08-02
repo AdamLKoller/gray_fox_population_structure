@@ -15,7 +15,7 @@ rule all:
         "tables/deduped_reads.csv",
         "tables/trimmed_reads.csv",
         "tables/aligned_reads.csv",
-        #expand("tables/pairwise_fst_{k}", k = range(2,11)),
+        expand("tables/pairwise_fst_{k}", k = range(2,11)),
         "figures/snp_significance.png",
         expand("tables/allele_stats_{k}.tab", k = range(2,5)),
         "figures/tess3_cross_validation_plot.png",
@@ -23,7 +23,8 @@ rule all:
         "tables/aligned_reads.csv",
         "tables/allele_stats_apriori.tab",
         "data/genotypes/geno5.counts",
-        "tables/raw_reads.csv"
+        "tables/raw_reads.csv",
+        
         
         
 
@@ -31,11 +32,10 @@ rule all:
 include:'rules/get_data.smk'
 include:'rules/preprocessing.smk'
 include:'rules/snp_filtering.smk'
-include:'rules/analyses.smk'
-
-    
-
-            
+include: 'rules/adding_apriori_pops_and_jittering.smk'
+include: 'rules/pop_gen_statistics.smk'
+include: 'rules/structure_and_pca.smk'
+include: 'rules/tess3.smk'
 
         
 
